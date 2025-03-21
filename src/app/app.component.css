@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  inline-size: 100%;
+  font-size: clamp(1rem, 0.8vw + 0.85rem, 1.25rem);
+  max-inline-size: 600px;
+  background-color: aquamarine;
+  margin: 0 auto;
+}
+
+.panel_counter {
+  border: 2px solid green;
+  padding: 10px;
+}
+
+.indicator-title {
+  font-size: clamp(1rem, 1.6vw + 0.7rem, 1.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.indicator-value {
+  font-size: clamp(1.25rem, 4vw + 0.5rem, 2.5rem);
+  color: brown;
+  padding-block: clamp(0.625rem, 2vw + 0.25rem, 1.25rem);
+}
+
+.panel_control-main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.button {
+  --gap: 5px;
+  margin: var(--gap);
+  padding: var(--gap);
+  background-color: aqua;
+  font-size: inherit;
+}
+
+.button:hover {
+  background-color: green;
+  color: white;
+}
+
+.panel_control-period {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+}
+
+.period-label {
+  padding: 5px;
+}
+
+.period-value {
+  font-size: inherit;
+  inline-size: 100px;
+  text-align: right;
+  padding: 2px;
+}
+
+.invalid-input {
+  background-color: lightpink;
+}

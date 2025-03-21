@@ -1,0 +1,32 @@
+<p>{{ message }}</p>
+<div class="panel panel_counter">
+  <!-- Индикатор счетчика -->
+  <div class="panel panel_indicator">
+    <p class="indicator-title">Счетчик</p>
+    <p class="indicator-value">{{ counter }}</p>
+  </div>
+  <!-- Панель управления счетчика -->
+  <div class="panel panel_control">
+    <div class="panel panel_control-main">
+      <button class="button" type="button" (click)="startCounter()">Старт</button>
+      <button class="button" type="button" (click)="stopCounter()">Стоп</button>
+      <button class="button" type="button" (click)="resetCounter()">Сброс</button>
+    </div>
+    <!-- Панель ввода периода срабатывания счетчика -->
+    <div class="panel panel_control-period">
+      <label class="period-label" for="period"
+        >Период срабатывания (1...100000), мс</label
+      >
+      <input
+        id="period"
+        type="text"
+        pattern="\d{1,5}"
+        [(ngModel)]="periodValue"
+        (keyup.enter)="onEnterPeriod($event)"
+        class="period-value"
+        placeholder="значение"
+      />
+    </div>
+  </div>
+</div>
+<app-counter (messageEvent)="receiveMessage($event)"></app-counter>
