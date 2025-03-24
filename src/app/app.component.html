@@ -1,0 +1,25 @@
+<section class="section comics-section">
+  <h1 class="list-title">Короли юмора</h1>
+  <ul class="comics-list">
+    <li class="comic-card" *ngFor="let comic of comicsKings">
+      <div class="photo-wrapper">
+        <img
+          src="{{ comic.photoLink }}"
+          alt="{{ comic.name }}"
+          class="comic-photo"
+        />
+      </div>
+      <div class="comic-data">
+        <h2 class="card-title">{{ comic.name }}</h2>
+        <p class="date" *ngIf="comic.birthDate | transformDate as transData">
+          Дата рождения: {{ transData }}
+        </p>
+        <p class="date" *ngIf="comic.deathDate | transformDate as transData">
+          Дата смерти: {{ transData }}
+        </p>
+        <p class="description">{{ comic.description }}</p>
+        <p class="rating" *ngIf="comic.rating | add5 as rnk">Рейтинг: {{ rnk }} / 5</p>
+      </div>
+    </li>
+  </ul>
+</section>

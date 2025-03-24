@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+}
+
+.section {
+  margin: 0 auto;
+  border-radius: 25px;
+  padding: 0px;
+  color: #293133;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #474a51;
+  min-inline-size: 340px;
+  max-inline-size: 1200px;
+}
+
+.list-title {
+  padding-block-start: 25px;
+  color: #cdc5c2;
+  font-size: clamp(1.563rem, 1.042rem + 2.778vi, 3.125rem);
+  text-align: center;
+  text-transform: uppercase;
+  background-color: transparent;
+}
+
+.comics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 50px;
+  background-color: transparent;
+}
+
+.comic-card {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: #dcdcdc;
+}
+
+.comic-card::after {
+  --image-size: clamp(2.5rem, 1.771rem + 3.889vi, 4.688rem);
+  content: "";
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: var(--image-size);
+  height: var(--image-size);
+  background-image: url("../assets/images/masks.avif");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.photo-wrapper {
+  flex-shrink: 0;
+  align-self: center;
+  width: 200px;
+  height: 200px;
+  background-color: transparent;
+}
+
+.comic-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 10%;
+  object-fit: cover;
+  object-position: center;
+  box-shadow: 0 0 20px 10px #7f7679;
+}
+
+.comic-data {
+  width: 100%;
+  background-color: transparent;
+}
+
+.card-title {
+  font-size: clamp(1.25rem, 1.042rem + 1.111vi, 1.875rem);
+  text-transform: uppercase;
+  background-color: transparent;
+}
+
+.date {
+  padding-block-start: 5px;
+  background-color: transparent;
+}
+
+.description {
+  padding-block: 10px;
+  font-size: clamp(1rem, 0.917rem + 0.444vi, 1.25rem);
+  background-color: transparent;
+}
+
+.rating {
+  color: #88706b;
+  font-weight: 700;
+  font-size: clamp(1rem, 0.917rem + 0.444vi, 1.25rem);
+}
+
+@media (width <= 700px) {
+  .comic-card {
+    display: flex;
+    flex-direction: column;
+  }
+}
