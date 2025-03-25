@@ -20,6 +20,7 @@ export class ItemListComponent implements OnInit, AfterViewInit {
     console.log('ngAfterViewInit');
     this.activeRouter.queryParams.subscribe((params) => {
       console.clear();
+      console.log('Таблица параметров запроса маршрута');
       console.table(params);
     });
   }

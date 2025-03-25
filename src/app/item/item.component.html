@@ -1,7 +1,12 @@
-<h1>Товар #{{ ItemId }}</h1>
+<h2>Товар #{{ ItemId }}</h2>
 <nav>
-  <a routerLink="details">Детали</a>
-  <br />
-  <a (click)="navigateWithQueryParams()">Лист</a>
+  <ul class="child-menu">
+    <li class="menu-item">
+      <a routerLink="details">Детали</a>
+    </li>
+    <li class="menu-item">
+      <a (click)="navigateWithQueryParams()">Лист</a>
+    </li>
+  </ul>
 </nav>
 <router-outlet></router-outlet>
