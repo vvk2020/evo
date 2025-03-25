@@ -1,12 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
 })
-export class DetailsComponent implements OnInit {
+export class ItemDetailsComponent implements OnInit {
+  public ItemId: any = null;
+  constructor(private activeRouter: ActivatedRoute) {}
+
   ngOnInit(): void {
-    console.log('55555');
+    this.activeRouter.parent?.params.subscribe((params) => {
+      this.ItemId = params['id'];
+      console.clear();
+      console.log('Таблица параметров маршрута');
+      console.table(params);
+    });
   }
 }

@@ -1,1 +1,6 @@
-<p>item works!</p>
+<h1>Товар #{{ ItemId }}</h1>
+<a routerLink="details">Детали</a>
+<br />
+<!-- <a routerLink="list">Лист</a> -->
+<a (click)="navigateWithQueryParams()">Лист</a>
+<router-outlet></router-outlet>
