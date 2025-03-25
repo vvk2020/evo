@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./details.component.css'],
 })
 export class ItemDetailsComponent implements OnInit {
-  public ItemId: any = null;
+  public ItemId: string | null = null;
   constructor(private activeRouter: ActivatedRoute) {}
 
   ngOnInit(): void {

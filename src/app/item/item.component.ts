@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./item.component.css'],
 })
 export class ItemComponent {
-  public ItemId: any = null;
+  public ItemId: string | null = null;
   constructor(private activeRouter: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
@@ -15,12 +15,15 @@ export class ItemComponent {
   }
 
   navigateWithQueryParams() {
-    console.log('===');
-    this.router.navigate(['/list'], {
+    // console.log('this.activeRouter', this.activeRouter.queryParams);
+    this.router.navigateByUrl('list');
+    this.router.navigate(['list'], {
+      relativeTo: this.activeRouter,
       queryParams: {
         list: 1,
         enable: true,
       },
+      queryParamsHandling: 'merge', // сохраняем существующие параметры
     });
   }
 }
