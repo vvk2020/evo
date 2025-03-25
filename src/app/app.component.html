@@ -1,0 +1,17 @@
+<h1 class="main-title">Меню сайта</h1>
+<nav>
+  <ul class="main-menu">
+    <li class="menu-item">
+      <a routerLink="/">Главная</a>
+    </li>
+    <li class="menu-item">
+      <a routerLink="/contact">Контаты</a>
+    </li>
+    <li class="menu-item">
+      <a routerLink="/about">О компании</a>
+    </li>
+  </ul>
+</nav>
+<!-- <a routerLink="/item">Товар</a> -->
+<a routerLink="/item/{{ ItemId }}" class="item-card">Карточка товара #{{ ItemId }}</a>
+<router-outlet></router-outlet>
