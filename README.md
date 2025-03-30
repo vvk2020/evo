@@ -1,27 +1,22 @@
-# FirstEvoApp
+# Практическое задание 5: Модули
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
+1. Создать приложение
+2. Создать компонент main
+3. Создать модуль с роутингом page
+4. В модуле page добавить компонент item
+5. Сделать компонент item lazyLoad загрузку
+6. Добавить @angular/material
+7. Интегрировать [tabs-компонент](https://material.angular.io/components/tabs/overview)
+8. Прислать ссылку на репозитории к ответу на это задание
 
-## Development server
+Должна получится такая структура приложения:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```mermaid
+graph LR
+    A[AppModule] --> B[Компонент main]
+    A --> C[app.component.html]
+    A --> D[Модуль page]
+    D --> E[lazyload-компонент item]
+    D --> F[Роутинг к page]
+    C --> G[tabs Component @angular/material]
+```
