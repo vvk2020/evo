@@ -6,7 +6,7 @@
 - [x] 4. В модуле page добавить компонент item
 - [x] 5. Сделать компонент item lazyLoad загрузку
 - [x] 6. Добавить @angular/material
-- [ ] 7. Интегрировать [tabs-компонент](https://material.angular.io/components/tabs/overview)
+- [x] 7. Интегрировать [tabs-компонент](https://material.angular.io/components/tabs/overview)
 - [ ] 8. Прислать ссылку на репозитории к ответу на это задание
 
 Должна получится такая структура приложения:
