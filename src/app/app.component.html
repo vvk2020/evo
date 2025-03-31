@@ -1,5 +1,11 @@
-<p>app++</p>
-<h1 class="main-title">Задание 1.5</h1>
+<h1 class="main-title">Задание 1.6</h1>
+<label for="id">ID: </label>
+<input [(ngModel)]="Id" type="number" id="id" placeholder="введите номер" />
 
+<button (click)="transferData()">Transfer</button>
+<p>
+  Данные передаются сервису по нажатию на кнопку "Transfer".
+  Возможно изменение Id объекта через поле "ID".
+</p>
+<app-book></app-book>
 <router-outlet></router-outlet>
-<!-- <router-outlet></router-outlet> -->

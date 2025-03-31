@@ -4,8 +4,8 @@
 - [x] 1. Создать приложение
 - [x] 2. Создать компонент `book`
 - [x] 3. Создать сервис `books`
-- [ ] 4. Создать маршрут `/book` к компоненту `book`
-- [ ] 5. Вывести из сервиса `books` только один объект в шаблоне компонента `book` (который ниже)
+- [x] 4. Создать маршрут `/book` к компоненту `book`
+- [x] 5. Вывести из сервиса `books` только один объект в шаблоне компонента `book` (который ниже)
 ```json
 {
     "postId": 1,
@@ -15,4 +15,4 @@
     "body": "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
 }
 ```
-- [ ] 6. Прислать ссылку на репозитории в ответе к этому заданию
+- [x] 6. Прислать ссылку на репозитории в ответе к этому заданию
