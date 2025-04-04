@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { InlineComponent } from './inline/inline.component';
 
 const routes: Routes = [
-  // { path: 'book', component: BookComponent },
+  { path: 'open-graph', component: InlineComponent }
 ];
 
 @NgModule({
