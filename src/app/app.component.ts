@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,9 @@ import { Title } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
   // title = 'evoApp';
-  constructor(public title: Title) {}
+  constructor(public title: Title, private meta: Meta) {
+    this.meta.addTag({ name: 'og:descr', content: 'root_desc' });
+  }
 
   ngOnInit(): void {
     this.title.setTitle('Desk Page');
