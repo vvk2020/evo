@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { InlineComponent } from './inline/inline.component';
 
 const routes: Routes = [
-  { path: 'open-graph', component: InlineComponent }
+  { path: 'open-graph', component: InlineComponent },
 ];
 
 @NgModule({

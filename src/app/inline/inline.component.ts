@@ -8,6 +8,12 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 export class InlineComponent implements OnInit {
   constructor(public title: Title, private meta: Meta) {
+    // Удаляем ставрые (неактуальные) метатеги
+    this.meta.getTags('property^="og:"').forEach((tag) => {
+      this.meta.removeTagElement(tag);
+    });
+
+    // Добавляем новые метатеги
     this.meta.addTags([
       { property: 'og:title', content: 'The Rock' },
       { property: 'og:type', content: 'video.movie' },
