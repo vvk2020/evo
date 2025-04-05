@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     this.title.setTitle('Desk Page');
     this.meta.addTag({ property: 'og:descr', content: 'root_desc' });
 
-    // Восстанавливаем Title b метатеги при возврате на маршрут "/"
+    // Восстанавливаем title и метатеги при возврате на маршрут "/"
     this.router.events
       .pipe(filter((event: any) => event instanceof NavigationEnd))
       .subscribe(() => {
