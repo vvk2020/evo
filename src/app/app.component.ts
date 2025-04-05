@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
         if (this.router.url === '/') {
           this.title.setTitle('Desk Page');
 
-          // Удаляем ставрые (неактуальные) метатеги
+          // Удаляем ставрые (неактуальные) og-метатеги
           this.meta.getTags('property^="og:"').forEach((tag) => {
             this.meta.removeTagElement(tag);
           });
