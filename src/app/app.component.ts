@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
+import DataTable from 'datatables.net';
 import * as $ from 'jquery';
 import 'datatables.net';
 
@@ -9,7 +10,7 @@ import 'datatables.net';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   constructor(public title: Title) {
     this.title.setTitle('charts & table');
   }
@@ -90,11 +91,11 @@ export class AppComponent {
     { data: [28, 48, 40, 19, 96, 27, 100], label: 'Ряд B' },
   ];
 
-    // datatables.net =============================
+  // datatables.net =============================
 
-    ngAfterViewInit(): void {
-      $('#example').DataTable({
-        // настройки
-      });
-    }
+  ngAfterViewInit(): void {
+    $('#example').DataTable({
+      // настройки
+    });
+  }
 }
