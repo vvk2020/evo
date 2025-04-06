@@ -1,7 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
-import DataTable from 'datatables.net';
 import * as $ from 'jquery';
 import 'datatables.net';
 
