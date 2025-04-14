@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BookService } from './book.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'evo';
+
+  constructor(private bookServ: BookService) {
+    bookServ.appendBook({ author: 'vvk', title: 'fury' });
+    bookServ.appendBook({ author: 'vvk', title: 'fury' });
+    console.log('bookServ.books:', bookServ.books);
+  }
 }
