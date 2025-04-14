@@ -1,38 +1,54 @@
 <h1>ЭЛЕКТРОННАЯ БИБЛИТЕКА</h1>
 <!-- Форма добавления карточки книги -->
+<h2>Сохранение книги в каталоге</h2>
 <mat-card>
   <mat-card-header>
     <mat-card-title>Карточка книги</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <!-- Поля формы -->
-    <mat-form-field appearance="outline">
-      <mat-label>Название</mat-label>
-      <input matInput formControlName="name" />
-      <!-- <mat-error *ngIf="form.get('name')?.hasError('required')"> -->
-      <!-- Обязательное поле -->
-      <!-- </mat-error> -->
-    </mat-form-field>
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+      <!-- Поля формы -->
+      <mat-form-field appearance="outline">
+        <mat-label>Название</mat-label>
+        <input matInput formControlName="title" />
+        <mat-error *ngIf="bookForm.get('title')?.invalid">
+          <span *ngIf="bookForm.get('title')?.hasError('required')"
+            >Поле обязательно для заполнения</span
+          >
+          <span *ngIf="bookForm.get('title')?.hasError('pattern')"
+            >Допускаются только русские буквы</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Автор</mat-label>
+        <input matInput formControlName="author" type="text" />
+        <mat-error *ngIf="bookForm.get('author')?.invalid">
+          <span *ngIf="bookForm.get('author')?.hasError('required')"
+            >Поле обязательно для заполнения</span
+          >
+          <span *ngIf="bookForm.get('author')?.hasError('pattern')"
+            >Допускаются только буквы русского алфавита</span
+          >
+        </mat-error>
+      </mat-form-field>
+    </form>
   </mat-card-content>
 
   <!-- Панель с кнопками -->
   <mat-card-actions>
-    <button mat-button>Очисить</button>
-    <button mat-raised-button color="primary" (click)="addBook()">
+    <button mat-button (click)="onReset()">Очисить</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      (click)="onSubmit()"
+      [disabled]="bookForm.invalid"
+    >
       <mat-icon>save</mat-icon>Сохранить
     </button>
   </mat-card-actions>
 </mat-card>
-
-
-<!-- <button
-  mat-raised-button
-  color="primary"
-  [disabled]="form.invalid"
-  (click)="onSubmit()"
->
-  Отправить
-</button> -->
 
 <!-- Каталог книг -->
 <h2>Каталог книг</h2>
@@ -56,4 +72,3 @@
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
   <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
 </table>
-

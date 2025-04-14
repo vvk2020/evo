@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 // Angular Material
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +23,7 @@ import { AppComponent } from './app.component';
     MatFormFieldModule,
     MatCardModule,
     MatIconModule,
+    ReactiveFormsModule
   ],
   exports: [MatTableModule],
   providers: [],
