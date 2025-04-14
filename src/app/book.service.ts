@@ -16,7 +16,7 @@ export class BookService {
     { id: 3, author: 'Габриэль Гарсиа Маркес', title: 'Сто лет одиночества' },
   ];
 
-  private _lastId: number = 0; // текущий максимум _books[].id
+  private _lastId: number = 0; // текущий максимум id
 
   public get books(): Book[] {
     return this._books;
