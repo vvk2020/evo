@@ -31,14 +31,33 @@ export class AppComponent {
 
   public onSubmit(): void {
     if (this.bookForm.valid) {
-      this.addBook(this.bookForm.value as Book);
-      this.bookForm.reset();
+      this.addBook(this.bookForm.value);
+      this.onReset();
     } else {
       this.bookForm.markAllAsTouched();
     }
   }
 
+  // Сброс формы к начальному (валидному) состоянию
   public onReset(): void {
-    this.bookForm.reset();
+    // Сбрас значений полей к "" (вместо null)
+    this.bookForm.reset({
+      title: '',
+      author: '',
+    });
+
+    // Сбрас состояния формы
+    this.bookForm.markAsPristine(); // нет пользовательских изменений (dirty=false)
+    this.bookForm.markAsUntouched(); // пользователь не взаимодействовал (touched=false)
+
+    // Очиcтка ошибок валидации
+    Object.keys(this.bookForm.controls).forEach((key) => {
+      this.bookForm.get(key)?.setErrors(null);
+    });
+
+    // Принудительное обновление (для Angular Material)
+    setTimeout(() => {
+      this.bookForm.updateValueAndValidity();
+    });
   }
 }

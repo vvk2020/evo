@@ -25,7 +25,7 @@ import { AppComponent } from './app.component';
     MatIconModule,
     ReactiveFormsModule
   ],
-  exports: [MatTableModule],
+  exports: [],
   providers: [],
   bootstrap: [AppComponent],
 })

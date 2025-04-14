@@ -16,8 +16,15 @@ export class BookService {
     { id: 3, author: 'Габриэль Гарсиа Маркес', title: 'Сто лет одиночества' },
   ];
 
+  private _lastId: number = 0; // текущий максимум _books[].id
+
   public get books(): Book[] {
     return this._books;
+  }
+
+  constructor() {
+    // Определение максимального id по данным исходного _books[]
+    if (!this._lastId) this.getMaxIdBook();
   }
 
   // Метод добавления новой книги
@@ -31,14 +38,18 @@ export class BookService {
     }
   }
 
-  // Генератор id книги
+  // Генератор id новой книги в каталоге
   private generateId(): number {
-    // Формирование массива книг с числовыми id
-    const ids = this._books
-      .map((book) => book.id ?? 0)
-      .filter((id) => typeof id === 'number');
-    // Определение максимального id в ids[]
-    const maxId = ids.length > 0 ? Math.max(...ids) : 0;
-    return maxId + 1;
+    return ++this._lastId;
+  }
+
+  // Определение максимального id (только при старте)
+  getMaxIdBook(): number {
+    if (this._books.length > 0)
+      this._lastId = this._books.reduce((prev, book) => {
+        if (book.id) return Math.max(prev, book.id);
+        return prev;
+      }, 0);
+    return this._lastId;
   }
 }
