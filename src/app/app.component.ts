@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BookService } from './book.service';
+import { Book, BookService } from './book.service';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +8,16 @@ import { BookService } from './book.service';
 })
 export class AppComponent {
   title = 'evo';
+  private displayedColumns: string[] = ['id', 'title', 'author'];
+  public columnsToDisplay: string[] = this.displayedColumns.slice();
+  public books: Book[] = [...this.bookServ.books];
 
   constructor(private bookServ: BookService) {
-    bookServ.appendBook({ author: 'vvk', title: 'fury' });
-    bookServ.appendBook({ author: 'vvk', title: 'fury' });
-    console.log('bookServ.books:', bookServ.books);
+  }
+
+  // Добавление книги в каталог через сервис и обновление таблицы
+  public addBook() {
+    this.bookServ.appendBook({ author: 'kvv', title: 'fury' });
+    this.books = [...this.bookServ.books];
   }
 }

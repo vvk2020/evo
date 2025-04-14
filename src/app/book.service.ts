@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export interface Book {
-  id?: number; // необязательно
+  id?: number; // номер по каталогу
   author: string; // автор книги
   title: string; // название книги
 }
@@ -12,8 +12,8 @@ export interface Book {
 export class BookService {
   private _books: Book[] = [
     { id: 1, author: 'Михаил Булгаков', title: 'Мастер и Маргарита' },
-    { id: 2, author: 'Габриэль Гарсиа Маркес', title: 'Сто лет одиночества' },
-    { id: 3, author: 'Герберт Уэллс', title: 'Война миров' },
+    { id: 2, author: 'Станислав Лем', title: 'Солярис' },
+    { id: 3, author: 'Габриэль Гарсиа Маркес', title: 'Сто лет одиночества' },
   ];
 
   public get books(): Book[] {
