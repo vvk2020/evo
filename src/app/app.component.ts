@@ -4,7 +4,7 @@ import { GeneratorsService } from './generators.service';
 
 // Конфигурации генераторов
 type generatorConfig = {
-  enable: boolean; // on/off-флаг
+  disable: boolean; // on/off-флаг
 };
 @Component({
   selector: 'app-root',
@@ -14,10 +14,10 @@ type generatorConfig = {
 export class AppComponent implements OnInit, OnDestroy {
   // Конфигурации генераторов
   _seqGenConfig: generatorConfig = {
-    enable: true,
+    disable: true,
   };
   private _rndGenConfig: generatorConfig = {
-    enable: true,
+    disable: true,
   };
 
   // Массивы для хранения чисел
@@ -32,11 +32,12 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private generator: GeneratorsService) {}
 
   // Запуск генерации последовательных чисел
-  public startSeqGenerator(): void {
+  public startSeqGenerator(counter?: number): void {
+    this._seqGenConfig.disable = true;
     this.seqSubscription$.next();
     // this._sequentialSeq = [];
     this.generator
-      .createSequentialStream()
+      .createSequentialStream(counter)
       .pipe(takeUntil(this.seqSubscription$))
       .subscribe((num) => {
         this._sequentialSeq.push(num + 1);
@@ -53,14 +54,14 @@ export class AppComponent implements OnInit, OnDestroy {
   // Останов генератора последовательных чисел
   stopSeqGenerator(): void {
     this.seqSubscription$.next();
-    this._seqGenConfig.enable = false;
+    this._seqGenConfig.disable = false;
   }
 
   // Сброс генератора последовательных чисел
   resetSeqGenerator(): void {
     this.stopSeqGenerator(); // остан генератора
     this._sequentialSeq = []; // очистка массива данных
-    this.startSeqGenerator(); // старт генератора
+    this.startSeqGenerator(1); // старт генератора
   }
 
   get sequentialSeq() {

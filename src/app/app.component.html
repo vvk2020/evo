@@ -12,13 +12,28 @@
         <mat-card-title>Последовательные числа</mat-card-title>
       </mat-card-header>
       <mat-card-actions class="actions">
-        <button mat-raised-button color="primary" (click)="startSeqGenerator()">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="startSeqGenerator()"
+          [disabled]="_seqGenConfig.disable"
+        >
           Старт
         </button>
-        <button mat-raised-button color="warn" (click)="stopSeqGenerator()">
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="stopSeqGenerator()"
+          [disabled]="!_seqGenConfig.disable"
+        >
           Стоп
         </button>
-        <button mat-raised-button color="basic" (click)="resetSeqGenerator()">
+        <button
+          mat-raised-button
+          color="basic"
+          (click)="resetSeqGenerator()"
+          [disabled]="_seqGenConfig.disable"
+        >
           Рестарт
         </button>
       </mat-card-actions>
