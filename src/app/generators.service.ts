@@ -7,7 +7,7 @@ import { interval, map, Observable, Subject, take, takeUntil } from 'rxjs';
 export class GeneratorsService {
   private _period: number = 500; // период срабатывания генераторов, мс
   // private _maxNumber: number = 10; // максимум значений генерируемых чисел
-  private _numberCount: number = 25; // максимальное количество чисел
+  private _numCount: number = 100; // максимальное количество чисел
   private _counter = 0; // текущее значение последовательности генерируемых чисел
 
   constructor() {}
@@ -17,12 +17,13 @@ export class GeneratorsService {
   // Создание потока, генераующего последовательные числа
   public createSequentialStream(
     period: number = this._period,
-    maxNumber: number = this._numberCount
+    maxNum: number = this._numCount,
+    startNum: number = this._counter
   ): Observable<number> {
-    this._counter = 0; // для случая перезапуска
+    this._counter = startNum; // для старта с нового числа
     return interval(period).pipe(
       takeUntil(this.destroy$),
-      take(maxNumber),
+      take(maxNum),
       map(() => this._counter++)
     );
   }

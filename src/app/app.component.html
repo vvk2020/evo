@@ -12,16 +12,23 @@
         <mat-card-title>Последовательные числа</mat-card-title>
       </mat-card-header>
       <mat-card-actions class="actions">
-        <button mat-raised-button color="primary" (click)="startSequentialGen()">Старт</button>
-        <button mat-raised-button color="warn" (click)="stopSequentialGen()">Стоп</button>
-        <button mat-raised-button color="basic" (click)="resetSequentialGen()">Сброс</button>
+        <button mat-raised-button color="primary" (click)="startSeqGenerator()">
+          Старт
+        </button>
+        <button mat-raised-button color="warn" (click)="stopSeqGenerator()">
+          Стоп
+        </button>
+        <button mat-raised-button color="basic" (click)="resetSeqGenerator()">
+          Рестарт
+        </button>
       </mat-card-actions>
       <mat-card-content>
         <mat-list>
-          <mat-list-item *ngFor="let num of sequentialGen">{{ num }}</mat-list-item>
+          <mat-list-item *ngFor="let num of sequentialSeq">{{
+            num
+          }}</mat-list-item>
         </mat-list>
       </mat-card-content>
-
     </mat-card>
 
     <!-- Колонка со случайными числами -->
