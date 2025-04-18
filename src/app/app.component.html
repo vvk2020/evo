@@ -15,52 +15,33 @@
         <button
           mat-raised-button
           color="primary"
-          (click)="startSeqGenerator()"
-          [disabled]="_seqGenConfig.disable"
+          (click)="startGenerator()"
+          [disabled]="_genConfig.disable"
         >
           Старт
         </button>
         <button
           mat-raised-button
           color="warn"
-          (click)="stopSeqGenerator()"
-          [disabled]="!_seqGenConfig.disable"
+          (click)="stopGenerator()"
+          [disabled]="!_genConfig.disable"
         >
           Стоп
         </button>
         <button
           mat-raised-button
           color="basic"
-          (click)="resetSeqGenerator()"
-          [disabled]="_seqGenConfig.disable"
+          (click)="resetGenerator()"
+          [disabled]="_genConfig.disable"
         >
           Рестарт
         </button>
       </mat-card-actions>
       <mat-card-content>
         <mat-list>
-          <mat-list-item *ngFor="let num of sequentialSeq">{{
-            num
-          }}</mat-list-item>
+          <mat-list-item *ngFor="let data of dataSet">{{ data | json }}</mat-list-item>
         </mat-list>
       </mat-card-content>
     </mat-card>
-
-    <!-- Колонка со случайными числами -->
-    <!-- <mat-card class="column">
-      <mat-card-header>
-        <mat-card-title>Random Numbers</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-list>
-          <mat-list-item *ngFor="let num of randomNumbers">{{ num }}</mat-list-item>
-        </mat-list>
-      </mat-card-content>
-      <mat-card-actions class="actions">
-        <button mat-raised-button color="primary" (click)="startRandomNumbers()">Start</button>
-        <button mat-raised-button color="warn" (click)="stopRandomNumbers()">Stop</button>
-        <button mat-raised-button color="basic" (click)="resetRandomNumbers()">Reset</button>
-      </mat-card-actions>
-    </mat-card> -->
   </div>
 </div>

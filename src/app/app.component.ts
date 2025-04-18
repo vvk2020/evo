@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { GeneratorsService } from './generators.service';
+import { GeneratorsService, Data } from './generators.service';
 
 // Конфигурации генераторов
 type generatorConfig = {
@@ -12,64 +12,58 @@ type generatorConfig = {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  // Конфигурации генераторов
-  _seqGenConfig: generatorConfig = {
+  // Конфигурация генераторов
+  public _genConfig: generatorConfig = {
     disable: true,
   };
-  // private _rndGenConfig: generatorConfig = {
-  //   disable: true,
-  // };
 
   // Массивы для хранения чисел
-  private _sequentialSeq: number[] = []; // последовательных
-  // private _randomSeq: string[] = []; // случайных
+  private _dataSet: Data[] = []; // последовательных
 
   // Observable-объекты, хранящие состояние и уведомляющие об изменениях
   private destroy$ = new Subject<void>();
-  private seqSubscription$ = new Subject<void>();
-  // private rndSubscription$ = new Subject<void>();
+  private subscription$ = new Subject<void>();
 
   constructor(private generator: GeneratorsService) {}
 
   // Запуск генерации последовательных чисел
-  public startSeqGenerator(counter?: number): void {
-    this._seqGenConfig.disable = true;
-    this.seqSubscription$.next();
+  public startGenerator(counter?: number): void {
+    this._genConfig.disable = true;
+    this.subscription$.next(); // Отменяем предыдущую подписку
     this.generator
-      .createSequentialStream({ startNum: counter })
-      .pipe(takeUntil(this.seqSubscription$))
+      .createGenerator({ startNum: counter })
+      .pipe(takeUntil(this.subscription$))
       .subscribe({
-        next: (num) => this._sequentialSeq.push(num + 1),
-        complete: () => (this._seqGenConfig.disable = false),
+        next: (data) => this._dataSet.push(data),
+        complete: () => (this._genConfig.disable = false),
       });
   }
 
   // Инициализация компонента
   ngOnInit(): void {
     // Запуск генераторов чисел
-    this.startSeqGenerator();
-    // this.startRandomNumbers();
+    this.startGenerator();
   }
 
   // Останов генератора последовательных чисел
-  stopSeqGenerator(): void {
-    this.seqSubscription$.next();
-    this._seqGenConfig.disable = false;
+  stopGenerator(): void {
+    this.subscription$.next();
+    this._genConfig.disable = false;
   }
 
   // Сброс генератора последовательных чисел
-  resetSeqGenerator(): void {
-    this.stopSeqGenerator(); // остан генератора
-    this._sequentialSeq = []; // очистка массива данных
-    this.startSeqGenerator(0); // старт генератора
+  resetGenerator(): void {
+    this.stopGenerator(); // остан генератора
+    this._dataSet = []; // очистка массива данных
+    this.startGenerator(0); // старт генератора
   }
 
-  get sequentialSeq() {
-    return this._sequentialSeq;
+  get dataSet() {
+    return this._dataSet;
   }
 
-  set sequentialSeq(sequence: number[]) {
-    this._sequentialSeq = [...sequence];
+  set dataSet(numSet: Data[]) {
+    this._dataSet = [...numSet];
   }
 
   // Отменяем все подписки при уничтожении компонента
