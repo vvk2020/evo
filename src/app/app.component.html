@@ -10,36 +10,63 @@
     <mat-card class="column">
       <mat-card-header>
         <mat-card-title>Последовательные числа</mat-card-title>
+        <mat-card-title>Случайные числа</mat-card-title>
       </mat-card-header>
       <mat-card-actions class="actions">
         <button
           mat-raised-button
           color="primary"
-          (click)="startGenerator()"
-          [disabled]="_genConfig.disable"
+          (click)="startSeqGenerator()"
+          [disabled]="_seqGenConfig.disable"
         >
           Старт
         </button>
         <button
           mat-raised-button
           color="warn"
-          (click)="stopGenerator()"
-          [disabled]="!_genConfig.disable"
+          (click)="stopSeqGenerator()"
+          [disabled]="!_seqGenConfig.disable"
         >
           Стоп
         </button>
         <button
           mat-raised-button
           color="basic"
-          (click)="resetGenerator()"
-          [disabled]="_genConfig.disable"
+          (click)="resetSeqGenerator()"
+          [disabled]="_seqGenConfig.disable"
         >
+          Рестарт
+        </button>
+      </mat-card-actions>
+
+      <mat-card-actions class="actions">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="startRndGenerator()"
+          [disabled]="_rndGenConfig.disable"
+        >
+          Старт 777
+        </button>
+        <button mat-raised-button color="warn" (click)="stopRndGenerator()">
+          Стоп
+        </button>
+        <button mat-raised-button color="basic" (click)="resetRndGenerator()">
           Рестарт
         </button>
       </mat-card-actions>
       <mat-card-content>
         <mat-list>
-          <mat-list-item *ngFor="let data of dataSet">{{ data | json }}</mat-list-item>
+          <mat-list-item *ngFor="let num of seqSet">{{ num }}</mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Колонка со случайными числами -->
+    <mat-card class="column">
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let num of rndSet">{{ num }}</mat-list-item>
         </mat-list>
       </mat-card-content>
     </mat-card>

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { GeneratorsService, Data } from './generators.service';
+import { GeneratorsService } from './generators.service';
 
 // Конфигурации генераторов
 type generatorConfig = {
@@ -12,58 +12,100 @@ type generatorConfig = {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  // Конфигурация генераторов
-  public _genConfig: generatorConfig = {
+  // Конфигурации генераторов
+  public _seqGenConfig: generatorConfig = {
+    disable: true,
+  };
+  public  _rndGenConfig: generatorConfig = {
     disable: true,
   };
 
   // Массивы для хранения чисел
-  private _dataSet: Data[] = []; // последовательных
+  private _seqSet: number[] = []; // последовательных
+  private _rndSet: number[] = []; // случайных
 
   // Observable-объекты, хранящие состояние и уведомляющие об изменениях
   private destroy$ = new Subject<void>();
-  private subscription$ = new Subject<void>();
+  private seqSubscription$ = new Subject<void>();
+  private rndSubscription$ = new Subject<void>();
 
   constructor(private generator: GeneratorsService) {}
 
   // Запуск генерации последовательных чисел
-  public startGenerator(counter?: number): void {
-    this._genConfig.disable = true;
-    this.subscription$.next(); // Отменяем предыдущую подписку
+  public startSeqGenerator(counter?: number): void {
+    this._seqGenConfig.disable = true;
+    this.seqSubscription$.next(); // Отменяем предыдущую подписку
     this.generator
-      .createGenerator({ startNum: counter })
-      .pipe(takeUntil(this.subscription$))
+      .createSeqStream({ startNum: counter })
+      .pipe(takeUntil(this.seqSubscription$))
       .subscribe({
-        next: (data) => this._dataSet.push(data),
-        complete: () => (this._genConfig.disable = false),
+        next: (num) => this._seqSet.push(num + 1),
+        complete: () => (this._seqGenConfig.disable = false),
+      });
+  }
+
+  // Запуск генерации случайных чисел
+  startRndGenerator(): void {
+    this._rndGenConfig.disable = true;
+    this.rndSubscription$.next();
+    // this._rndSet = [];
+
+    this.generator
+      .createRndStream({period: 2000})
+      .pipe(takeUntil(this.rndSubscription$))
+      .subscribe({
+        next: (num) => this._rndSet.push(num),
+        complete: () => (this._rndGenConfig.disable = false),
       });
   }
 
   // Инициализация компонента
   ngOnInit(): void {
     // Запуск генераторов чисел
-    this.startGenerator();
+    this.startSeqGenerator();
+    this.startRndGenerator();
   }
 
   // Останов генератора последовательных чисел
-  stopGenerator(): void {
-    this.subscription$.next();
-    this._genConfig.disable = false;
+  stopSeqGenerator(): void {
+    this.seqSubscription$.next();
+    this._seqGenConfig.disable = false;
+  }
+
+  // Останов генератора случайных чисел
+  stopRndGenerator(): void {
+    this.rndSubscription$.next();
+    this._rndGenConfig.disable = false;
   }
 
   // Сброс генератора последовательных чисел
-  resetGenerator(): void {
-    this.stopGenerator(); // остан генератора
-    this._dataSet = []; // очистка массива данных
-    this.startGenerator(0); // старт генератора
+  resetSeqGenerator(): void {
+    this.stopSeqGenerator(); // остан генератора
+    this._seqSet = []; // очистка массива данных
+    this.startSeqGenerator(0); // старт генератора
   }
 
-  get dataSet() {
-    return this._dataSet;
+  resetRndGenerator(): void {
+    this.stopRndGenerator(); // остан генератора
+    this._rndSet = []; // очистка массива данных
+    this.startRndGenerator(); // старт генератора
   }
 
-  set dataSet(numSet: Data[]) {
-    this._dataSet = [...numSet];
+  get seqSet() {
+    return this._seqSet;
+  }
+
+  set seqSet(numSet: number[]) {
+    this._seqSet = [...numSet];
+  }
+
+  get rndSet() {
+    // map((num) => `Random Value: ${num + 1}`)
+    return this._rndSet;
+  }
+
+  set rndSet(numSet: number[]) {
+    this._rndSet = [...numSet];
   }
 
   // Отменяем все подписки при уничтожении компонента
