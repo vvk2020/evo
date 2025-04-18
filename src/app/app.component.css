@@ -1,0 +1,10 @@
+.buttons-panel{
+  display: flex;
+  flex-direction: row;
+  /* padding */
+}
+
+.buttons-group {
+  display: flex;
+  flex-direction: column;
+}

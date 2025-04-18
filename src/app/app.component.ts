@@ -1,11 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { GeneratorsService } from './generators.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 // Конфигурации генераторов
 type generatorConfig = {
   disable: boolean; // on/off-флаг
 };
+
+interface Data {
+  seq?: number;
+  rnd?: number;
+}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,13 +22,17 @@ export class AppComponent implements OnInit, OnDestroy {
   public _seqGenConfig: generatorConfig = {
     disable: true,
   };
-  public  _rndGenConfig: generatorConfig = {
+  public _rndGenConfig: generatorConfig = {
     disable: true,
   };
 
   // Массивы для хранения чисел
   private _seqSet: number[] = []; // последовательных
   private _rndSet: number[] = []; // случайных
+
+  // Источники данных таблицы шаблона
+  public displayedColumns: string[] = ['seq', 'rnd'];
+  public dataSource = new MatTableDataSource<Data>();
 
   // Observable-объекты, хранящие состояние и уведомляющие об изменениях
   private destroy$ = new Subject<void>();
@@ -39,9 +49,28 @@ export class AppComponent implements OnInit, OnDestroy {
       .createSeqStream({ startNum: counter })
       .pipe(takeUntil(this.seqSubscription$))
       .subscribe({
-        next: (num) => this._seqSet.push(num + 1),
+        next: (num) => this._seqSet.push(num),
         complete: () => (this._seqGenConfig.disable = false),
       });
+  }
+
+  getData() {
+    // Максимальная длина массивов
+    const maxLength = Math.max(this._rndSet.length, this._seqSet.length);
+    const newData: Data[] = [];
+    for (let i = 0; i < maxLength; i++) {
+      newData.push({
+        seq: i < this._seqSet.length ? this._seqSet[i] : undefined,
+        rnd: i < this._rndSet.length ? this._rndSet[i] : undefined,
+        // rnd: i < this._rndSet.length ? this._rndSet[i] : undefined,
+        // seq: i < this._seqSet.length ? this._seqSet[i] : undefined,
+      });
+      console.log('this._rndSet', this._rndSet);
+      console.log('this._seqSet', this._seqSet);
+      console.log('this.dataSource.data', this.dataSource.data);
+      // this.dataSource = new MatTableDataSource(newData);
+      this.dataSource.data = newData;
+    }
   }
 
   // Запуск генерации случайных чисел
@@ -51,7 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // this._rndSet = [];
 
     this.generator
-      .createRndStream({period: 2000})
+      .createRndStream({})
       .pipe(takeUntil(this.rndSubscription$))
       .subscribe({
         next: (num) => this._rndSet.push(num),
@@ -64,6 +93,9 @@ export class AppComponent implements OnInit, OnDestroy {
     // Запуск генераторов чисел
     this.startSeqGenerator();
     this.startRndGenerator();
+    setInterval(() => {
+      this.getData();
+    }, 2000);
   }
 
   // Останов генератора последовательных чисел

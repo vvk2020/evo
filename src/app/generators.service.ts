@@ -5,9 +5,9 @@ import { interval, map, Observable, Subject, take, takeUntil, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class GeneratorsService {
-  private _period: number = 500; // период срабатывания генераторов, мс
-  private _maxNumber: number = 100; // максимум значений генерируемых чисел
-  private _counterLimit: number = 10; // максимальное количество чисел
+  private _period: number = 2000; // период срабатывания генераторов, мс
+  private _maxNumber: number = 1000; // максимум значений генерируемых чисел
+  private _counterLimit: number = 25; // максимальное количество чисел
   private _counter = 0; // текущее значение последовательности генерируемых чисел
 
   constructor() {}
@@ -20,7 +20,7 @@ export class GeneratorsService {
     counterLimit = this._counterLimit,
     startNum = this._counter,
   }): Observable<number> {
-    this._counter = startNum; // стартас c заданным значением счетчика
+    this._counter = startNum; // старта с заданного значения счетчика
     // Рестарт счетчика при достижении предельного значения
     if (this._counter >= this._counterLimit) this._counter = 0;
     return interval(period).pipe(
