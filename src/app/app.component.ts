@@ -16,9 +16,9 @@ export class AppComponent implements OnInit, OnDestroy {
   _seqGenConfig: generatorConfig = {
     disable: true,
   };
-  private _rndGenConfig: generatorConfig = {
-    disable: true,
-  };
+  // private _rndGenConfig: generatorConfig = {
+  //   disable: true,
+  // };
 
   // Массивы для хранения чисел
   private _sequentialSeq: number[] = []; // последовательных
@@ -35,12 +35,12 @@ export class AppComponent implements OnInit, OnDestroy {
   public startSeqGenerator(counter?: number): void {
     this._seqGenConfig.disable = true;
     this.seqSubscription$.next();
-    // this._sequentialSeq = [];
     this.generator
-      .createSequentialStream(counter)
+      .createSequentialStream({ startNum: counter })
       .pipe(takeUntil(this.seqSubscription$))
-      .subscribe((num) => {
-        this._sequentialSeq.push(num + 1);
+      .subscribe({
+        next: (num) => this._sequentialSeq.push(num + 1),
+        complete: () => (this._seqGenConfig.disable = false),
       });
   }
 
@@ -61,7 +61,7 @@ export class AppComponent implements OnInit, OnDestroy {
   resetSeqGenerator(): void {
     this.stopSeqGenerator(); // остан генератора
     this._sequentialSeq = []; // очистка массива данных
-    this.startSeqGenerator(1); // старт генератора
+    this.startSeqGenerator(0); // старт генератора
   }
 
   get sequentialSeq() {
