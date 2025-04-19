@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { interval, Subject, Subscription, takeUntil } from 'rxjs';
 import { GeneratorsService } from './generators.service';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -28,8 +28,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // Observable-объекты, хранящие состояние и уведомляющие об изменениях
   private destroy$ = new Subject<void>();
-  private seqSubscription$ = new Subject<void>();
-  private rndSubscription$ = new Subject<void>();
+  private seqSubscription$?: Subscription;
+  private rndSubscription$?: Subscription;
 
   constructor(private generator: GeneratorsService) {}
 
@@ -37,12 +37,17 @@ export class AppComponent implements OnInit, OnDestroy {
   public startSeqGenerator(counter?: number): void {
     this.seqGenEnabled = true;
     this.anyGenEnabled = true;
-    this.seqSubscription$.next(); // Отменяем предыдущую подписку
-    this.generator
+
+    // Отписка от предыдущей подписки
+    if (this.seqSubscription$) {
+      this.seqSubscription$.unsubscribe();
+    }
+
+    this.seqSubscription$ = this.generator
       .createSeqStream({ startNum: counter })
-      .pipe(takeUntil(this.seqSubscription$))
       .subscribe({
         next: (num) => this._seqSet.push(num),
+        error: (err) => console.error('Ошибка:', err),
         complete: () => {
           this.seqGenEnabled = false;
           if (!this.rndGenEnabled) this.anyGenEnabled = false;
@@ -54,12 +59,17 @@ export class AppComponent implements OnInit, OnDestroy {
   public startRndGenerator(counter?: number): void {
     this.rndGenEnabled = true;
     this.anyGenEnabled = true;
-    this.rndSubscription$.next();
-    this.generator
+
+    // Отписка от предыдущей подписки
+    if (this.rndSubscription$) {
+      this.rndSubscription$.unsubscribe();
+    }
+
+    this.rndSubscription$ = this.generator
       .createRndStream({ startNum: counter })
-      .pipe(takeUntil(this.rndSubscription$))
       .subscribe({
         next: (str) => this._rndSet.push(str),
+        error: (err) => console.error('Ошибка:', err),
         complete: () => {
           this.rndGenEnabled = false;
           if (!this.seqGenEnabled) this.anyGenEnabled = false;
@@ -74,6 +84,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private getData() {
+    if (this._seqSet.length === 0 && this._rndSet.length === 0) {
+      return;
+    }
     // Максимальная длина массивов
     const maxLength = Math.max(this._rndSet.length, this._seqSet.length);
     const newData: Data[] = [];
@@ -82,42 +95,42 @@ export class AppComponent implements OnInit, OnDestroy {
         seq: i < this._seqSet.length ? this._seqSet[i] : undefined,
         rnd: i < this._rndSet.length ? this._rndSet[i] : undefined,
       });
-      this.dataSource.data = newData;
     }
+    this.dataSource.data = newData;
   }
 
   // Инициализация компонента
   ngOnInit(): void {
-    // Запуск генераторов чисел
-    this.startSeqGenerator();
-    this.startRndGenerator();
-    // Обновление таблицы данных
-    setInterval(() => {
-      this.getData();
-    }, 250);
+    // Запуск всех генераторов чисел
+    this.startAllGenerators();
+    // Запуск периодического вывода в шаблон
+    interval(250)
+      .pipe(
+        takeUntil(this.destroy$) // автоматическая отписка при уничтожении компонента
+      )
+      .subscribe(() => {
+        this.getData();
+      });
   }
 
   // Останов генератора последовательных чисел
   stopSeqGenerator(): void {
-    this.seqSubscription$.next();
+    this.seqSubscription$?.unsubscribe(); // .next();
     this.seqGenEnabled = false;
     if (!this.rndGenEnabled) this.anyGenEnabled = false;
   }
 
   // Останов генератора случайных чисел
   stopRndGenerator(): void {
-    this.rndSubscription$.next();
+    this.rndSubscription$?.unsubscribe(); // .next();
     this.rndGenEnabled = false;
     if (!this.seqGenEnabled) this.anyGenEnabled = false;
   }
 
   // Останов всех генераторов
   stopAllGenerators(): void {
-    this.seqSubscription$.next();
-    this.rndSubscription$.next();
-    this.seqGenEnabled = false;
-    this.rndGenEnabled = false;
-    this.anyGenEnabled = false;
+    this.stopSeqGenerator();
+    this.stopRndGenerator();
   }
 
   // Сброс генератора последовательных чисел
@@ -137,14 +150,11 @@ export class AppComponent implements OnInit, OnDestroy {
   // Сброс всех генератора
   resetAllGenerators(): void {
     // Остан генераторов
-    this.stopSeqGenerator();
-    this.stopRndGenerator();
+    this.stopAllGenerators();
     // Очистка массивов данных
     this._seqSet = [];
     this._rndSet = [];
-    // Старт генераторов
-    // this.startSeqGenerator(0);
-    // this.startRndGenerator(0);
+    // Старт подписок
     this.startAllGenerators(0);
   }
 
@@ -168,5 +178,8 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    [this.seqSubscription$, this.rndSubscription$].forEach((subscribe$) => {
+      subscribe$?.unsubscribe();
+    });
   }
 }
