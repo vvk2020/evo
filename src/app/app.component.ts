@@ -108,9 +108,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$) // автоматическая отписка при уничтожении компонента
       )
-      .subscribe(() => {
-        this.getData();
-      });
+      .subscribe(() => this.getData());
   }
 
   // Останов генератора последовательных чисел
