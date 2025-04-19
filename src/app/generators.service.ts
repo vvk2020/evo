@@ -35,7 +35,7 @@ export class GeneratorsService {
     return interval(period).pipe(
       take(counterLimit - this._seqCounter), // с учетом уже сгенерированных чисел
       map(() => this._seqCounter++),
-      finalize(() => (this._seqCounterLock = false)) // Разблокировка потока
+      finalize(() => (this._seqCounterLock = false)) // разблокировка потока
     );
   }
 
@@ -62,7 +62,7 @@ export class GeneratorsService {
         this._rndCounter++;
         return `Random Value: ${Math.floor(Math.random() * maxValue)}`;
       }),
-      finalize(() => (this._rndCounterLock = false)) // Разблокировка потока
+      finalize(() => (this._rndCounterLock = false)) // разблокировка потока
     );
   }
 }
