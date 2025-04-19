@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 interface Data {
   seq?: number;
-  rnd?: number;
+  rnd?: string;
 }
 @Component({
   selector: 'app-root',
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // Массивы для хранения чисел
   private _seqSet: number[] = []; // последовательных
-  private _rndSet: number[] = []; // случайных
+  private _rndSet: string[] = []; // случайных
 
   // Источники данных таблицы шаблона
   public displayedColumns: string[] = ['seq', 'rnd'];
@@ -59,7 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .createRndStream({ startNum: counter })
       .pipe(takeUntil(this.rndSubscription$))
       .subscribe({
-        next: (num) => this._rndSet.push(num),
+        next: (str) => this._rndSet.push(str),
         complete: () => {
           this.rndGenEnabled = false;
           if (!this.seqGenEnabled) this.anyGenEnabled = false;
@@ -73,7 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.startRndGenerator(counter);
   }
 
-  getData() {
+  private getData() {
     // Максимальная длина массивов
     const maxLength = Math.max(this._rndSet.length, this._seqSet.length);
     const newData: Data[] = [];
@@ -94,7 +94,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // Обновление таблицы данных
     setInterval(() => {
       this.getData();
-    }, 2000);
+    }, 250);
   }
 
   // Останов генератора последовательных чисел
@@ -160,7 +160,7 @@ export class AppComponent implements OnInit, OnDestroy {
     return this._rndSet;
   }
 
-  set rndSet(numSet: number[]) {
+  set rndSet(numSet: string[]) {
     this._rndSet = [...numSet];
   }
 

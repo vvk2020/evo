@@ -6,10 +6,10 @@ import { interval, map, Observable, Subject, take, takeUntil, tap } from 'rxjs';
 })
 export class GeneratorsService {
   private _period: number = 2000; // период срабатывания генераторов, мс
-  private _maxNumber: number = 1000; // максимум значений генерируемых чисел
-  private _counterLimit: number = 25; // максимальное количество чисел
-  private _seqCounter = 0; // текущее значение последовательности генерируемых чисел
-  private _rndCounter = 0; // текущее значение последовательности генерируемых чисел
+  private _maxNumber: number = 1000; // max генерируемых чисел
+  private _counterLimit: number = 25; // кол-во чисел, генерируемых за 1 проход
+  private _seqCounter = 0; // счетчик последовательных чисел
+  private _rndCounter = 0; // счетчик случайных чисел
 
   constructor() {}
 
@@ -37,7 +37,7 @@ export class GeneratorsService {
     counterLimit = this._counterLimit,
     maxValue = this._maxNumber,
     startNum = this._rndCounter,
-  }): Observable<number> {
+  }): Observable<string> {
     console.log(
       'counterLimit / this._rndCounter',
       counterLimit,
@@ -52,7 +52,7 @@ export class GeneratorsService {
       take(counterLimit - this._rndCounter), // с учетом уже сгенерированных чисел
       map(() => {
         this._rndCounter++;
-        return Math.floor(Math.random() * maxValue);
+        return `Random Value: ${Math.floor(Math.random() * maxValue)}`;
       })
     );
   }
