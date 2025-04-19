@@ -5,11 +5,13 @@ import { finalize, interval, map, Observable, take } from 'rxjs';
   providedIn: 'root',
 })
 export class GeneratorsService {
+  // НАстройки генераторов
   private _period: number = 2000; // период срабатывания генераторов, мс
   private _maxNumber: number = 1000; // max генерируемых чисел
   private _counterLimit: number = 25; // кол-во чисел, генерируемых за 1 проход
-  private _seqCounter = 0; // счетчик последовательных чисел
-  private _rndCounter = 0; // счетчик случайных чисел
+  // Счетчики
+  private _seqCounter = 0; // последовательных чисел
+  private _rndCounter = 0; // случайных чисел
   // Флаги блокировки попыток запуска уже запущенного потока
   private _seqCounterLock = false; // последовательных чисел
   private _rndCounterLock = false; // случайных чисел
