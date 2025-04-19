@@ -1,82 +1,38 @@
+<h1>Генераторы чисел</h1>
 <div class="container">
-  <h1>Генераторы чисел</h1>
-
-  <!-- <div class="reset-all">
-    <button mat-raised-button color="accent" (click)="resetAll()">RESET ALL</button>
-  </div> -->
-
-  <div class="control-panel">
-    <!-- Колонка с последовательными числами -->
-    <mat-card class="column">
-      <mat-card-header>
-        <mat-card-title>Панель управления</mat-card-title>
-      </mat-card-header>
-
+  <!-- Колонка с последовательными числами -->
+  <mat-card class="column">
+    <mat-card-header>
+      <mat-card-title>Общая панель управления</mat-card-title>
       <mat-card-actions class=".buttons-panel">
-        <div class="buttons-group">
-          <button
+        <button
             mat-raised-button
             color="primary"
-            (click)="startSeqGenerator()"
-            [disabled]="_seqGenConfig.disable"
+            (click)="startAllGenerators()"
+            [disabled]="anyGenEnabled"
           >
             Старт
           </button>
           <button
             mat-raised-button
             color="warn"
-            (click)="stopSeqGenerator()"
-            [disabled]="!_seqGenConfig.disable"
+            (click)="stopAllGenerators()"
+            [disabled]="!anyGenEnabled"
           >
             Стоп
           </button>
-          <button
-            mat-raised-button
-            color="basic"
-            (click)="resetSeqGenerator()"
-            [disabled]="_seqGenConfig.disable"
-          >
-            Рестарт
-          </button>
-        </div>
-
-        <div class="buttons-group">
-          <button
-            mat-raised-button
-            color="primary"
-            (click)="startRndGenerator()"
-            [disabled]="_rndGenConfig.disable"
-          >
-            Старт 777
-          </button>
-          <button mat-raised-button color="warn" (click)="stopRndGenerator()">
-            Стоп
-          </button>
-          <button mat-raised-button color="basic" (click)="resetRndGenerator()">
-            Рестарт
-          </button>
-        </div>
+        <button
+          mat-raised-button
+          color="basic"
+          (click)="resetAllGenerators()"
+          [disabled]="anyGenEnabled"
+        >
+          Рестарт
+        </button>
       </mat-card-actions>
-
-      <mat-card-actions class="buttons-group"> </mat-card-actions>
-      <mat-card-content>
-        <mat-list>
-          <mat-list-item *ngFor="let num of seqSet">{{ num }}</mat-list-item>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
-  </div>
-
-  <!-- Колонка со случайными числами -->
-  <!-- <mat-card class="column">
-    <mat-card-content>
-      <mat-list>
-        <mat-list-item *ngFor="let num of rndSet">{{ num }}</mat-list-item>
-      </mat-list>
-    </mat-card-content>
-  </mat-card> -->
+    </mat-card-header>
+  </mat-card>
 </div>
-
 
 <mat-card>
   <mat-card-header>
@@ -86,12 +42,68 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Колонка с последовательными числами -->
       <ng-container matColumnDef="seq">
-        <th mat-header-cell *matHeaderCellDef>Последовательные</th>
+        <th mat-header-cell *matHeaderCellDef>
+          Последовательные
+          <mat-card-actions class=".buttons-panel">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="startSeqGenerator()"
+              [disabled]="seqGenEnabled"
+            >
+              Старт
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="stopSeqGenerator()"
+              [disabled]="!seqGenEnabled"
+            >
+              Стоп
+            </button>
+            <button
+              mat-raised-button
+              color="basic"
+              (click)="resetSeqGenerator()"
+              [disabled]="seqGenEnabled"
+            >
+              Рестарт
+            </button>
+          </mat-card-actions>
+        </th>
         <td mat-cell *matCellDef="let element">{{ element.seq }}</td>
       </ng-container>
       <!-- Колонка со случайными числами -->
       <ng-container matColumnDef="rnd">
-        <th mat-header-cell *matHeaderCellDef>Случайные</th>
+        <th mat-header-cell *matHeaderCellDef>
+          Случайные
+          <mat-card-actions class=".buttons-panel">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="startRndGenerator()"
+              [disabled]="rndGenEnabled"
+            >
+              Старт
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="stopRndGenerator()"
+              [disabled]="!rndGenEnabled"
+            >
+              Стоп
+            </button>
+            <button
+              mat-raised-button
+              color="basic"
+              (click)="resetRndGenerator()"
+              [disabled]="rndGenEnabled"
+            >
+              Рестарт
+            </button>
+          </mat-card-actions>
+        </th>
         <td mat-cell *matCellDef="let element">{{ element.rnd }}</td>
       </ng-container>
 

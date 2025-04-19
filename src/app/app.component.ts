@@ -3,11 +3,6 @@ import { Subject, takeUntil } from 'rxjs';
 import { GeneratorsService } from './generators.service';
 import { MatTableDataSource } from '@angular/material/table';
 
-// Конфигурации генераторов
-type generatorConfig = {
-  disable: boolean; // on/off-флаг
-};
-
 interface Data {
   seq?: number;
   rnd?: number;
@@ -18,13 +13,10 @@ interface Data {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  // Конфигурации генераторов
-  public _seqGenConfig: generatorConfig = {
-    disable: true,
-  };
-  public _rndGenConfig: generatorConfig = {
-    disable: true,
-  };
+  // Флаги включения генераторов
+  public seqGenEnabled: boolean = true;
+  public rndGenEnabled: boolean = true;
+  public anyGenEnabled: boolean = true;
 
   // Массивы для хранения чисел
   private _seqSet: number[] = []; // последовательных
@@ -43,15 +35,42 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // Запуск генерации последовательных чисел
   public startSeqGenerator(counter?: number): void {
-    this._seqGenConfig.disable = true;
+    this.seqGenEnabled = true;
+    this.anyGenEnabled = true;
     this.seqSubscription$.next(); // Отменяем предыдущую подписку
     this.generator
       .createSeqStream({ startNum: counter })
       .pipe(takeUntil(this.seqSubscription$))
       .subscribe({
         next: (num) => this._seqSet.push(num),
-        complete: () => (this._seqGenConfig.disable = false),
+        complete: () => {
+          this.seqGenEnabled = false;
+          if (!this.rndGenEnabled) this.anyGenEnabled = false;
+        },
       });
+  }
+
+  // Запуск генерации случайных чисел
+  public startRndGenerator(counter?: number): void {
+    this.rndGenEnabled = true;
+    this.anyGenEnabled = true;
+    this.rndSubscription$.next();
+    this.generator
+      .createRndStream({ startNum: counter })
+      .pipe(takeUntil(this.rndSubscription$))
+      .subscribe({
+        next: (num) => this._rndSet.push(num),
+        complete: () => {
+          this.rndGenEnabled = false;
+          if (!this.seqGenEnabled) this.anyGenEnabled = false;
+        },
+      });
+  }
+
+  // Запуск генерации чисел
+  public startAllGenerators(counter?: number) {
+    this.startSeqGenerator(counter);
+    this.startRndGenerator(counter);
   }
 
   getData() {
@@ -62,30 +81,9 @@ export class AppComponent implements OnInit, OnDestroy {
       newData.push({
         seq: i < this._seqSet.length ? this._seqSet[i] : undefined,
         rnd: i < this._rndSet.length ? this._rndSet[i] : undefined,
-        // rnd: i < this._rndSet.length ? this._rndSet[i] : undefined,
-        // seq: i < this._seqSet.length ? this._seqSet[i] : undefined,
       });
-      console.log('this._rndSet', this._rndSet);
-      console.log('this._seqSet', this._seqSet);
-      console.log('this.dataSource.data', this.dataSource.data);
-      // this.dataSource = new MatTableDataSource(newData);
       this.dataSource.data = newData;
     }
-  }
-
-  // Запуск генерации случайных чисел
-  startRndGenerator(): void {
-    this._rndGenConfig.disable = true;
-    this.rndSubscription$.next();
-    // this._rndSet = [];
-
-    this.generator
-      .createRndStream({})
-      .pipe(takeUntil(this.rndSubscription$))
-      .subscribe({
-        next: (num) => this._rndSet.push(num),
-        complete: () => (this._rndGenConfig.disable = false),
-      });
   }
 
   // Инициализация компонента
@@ -93,6 +91,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // Запуск генераторов чисел
     this.startSeqGenerator();
     this.startRndGenerator();
+    // Обновление таблицы данных
     setInterval(() => {
       this.getData();
     }, 2000);
@@ -101,13 +100,24 @@ export class AppComponent implements OnInit, OnDestroy {
   // Останов генератора последовательных чисел
   stopSeqGenerator(): void {
     this.seqSubscription$.next();
-    this._seqGenConfig.disable = false;
+    this.seqGenEnabled = false;
+    if (!this.rndGenEnabled) this.anyGenEnabled = false;
   }
 
   // Останов генератора случайных чисел
   stopRndGenerator(): void {
     this.rndSubscription$.next();
-    this._rndGenConfig.disable = false;
+    this.rndGenEnabled = false;
+    if (!this.seqGenEnabled) this.anyGenEnabled = false;
+  }
+
+  // Останов всех генераторов
+  stopAllGenerators(): void {
+    this.seqSubscription$.next();
+    this.rndSubscription$.next();
+    this.seqGenEnabled = false;
+    this.rndGenEnabled = false;
+    this.anyGenEnabled = false;
   }
 
   // Сброс генератора последовательных чисел
@@ -117,10 +127,25 @@ export class AppComponent implements OnInit, OnDestroy {
     this.startSeqGenerator(0); // старт генератора
   }
 
+  // Сброс генератора случайных чисел
   resetRndGenerator(): void {
     this.stopRndGenerator(); // остан генератора
     this._rndSet = []; // очистка массива данных
-    this.startRndGenerator(); // старт генератора
+    this.startRndGenerator(0); // старт генератора
+  }
+
+  // Сброс всех генератора
+  resetAllGenerators(): void {
+    // Остан генераторов
+    this.stopSeqGenerator();
+    this.stopRndGenerator();
+    // Очистка массивов данных
+    this._seqSet = [];
+    this._rndSet = [];
+    // Старт генераторов
+    // this.startSeqGenerator(0);
+    // this.startRndGenerator(0);
+    this.startAllGenerators(0);
   }
 
   get seqSet() {
@@ -132,7 +157,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   get rndSet() {
-    // map((num) => `Random Value: ${num + 1}`)
     return this._rndSet;
   }
 

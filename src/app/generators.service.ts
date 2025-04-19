@@ -8,7 +8,8 @@ export class GeneratorsService {
   private _period: number = 2000; // период срабатывания генераторов, мс
   private _maxNumber: number = 1000; // максимум значений генерируемых чисел
   private _counterLimit: number = 25; // максимальное количество чисел
-  private _counter = 0; // текущее значение последовательности генерируемых чисел
+  private _seqCounter = 0; // текущее значение последовательности генерируемых чисел
+  private _rndCounter = 0; // текущее значение последовательности генерируемых чисел
 
   constructor() {}
 
@@ -18,15 +19,15 @@ export class GeneratorsService {
   public createSeqStream({
     period = this._period,
     counterLimit = this._counterLimit,
-    startNum = this._counter,
+    startNum = this._seqCounter,
   }): Observable<number> {
-    this._counter = startNum; // старта с заданного значения счетчика
+    this._seqCounter = startNum; // старт с заданного значения счетчика
     // Рестарт счетчика при достижении предельного значения
-    if (this._counter >= this._counterLimit) this._counter = 0;
+    if (this._seqCounter >= this._counterLimit) this._seqCounter = 0;
     return interval(period).pipe(
       takeUntil(this.destroy$),
-      take(counterLimit - this._counter), // с учетом уже сгенерированных чисел
-      map(() => this._counter++)
+      take(counterLimit - this._seqCounter), // с учетом уже сгенерированных чисел
+      map(() => this._seqCounter++)
     );
   }
 
@@ -35,14 +36,24 @@ export class GeneratorsService {
     period = this._period,
     counterLimit = this._counterLimit,
     maxValue = this._maxNumber,
+    startNum = this._rndCounter,
   }): Observable<number> {
+    console.log(
+      'counterLimit / this._rndCounter',
+      counterLimit,
+      ' / ',
+      this._rndCounter
+    );
+    this._rndCounter = startNum; // старт с заданного значения счетчика
     // Рестарт счетчика при достижении предельного значения
-    if (this._counter >= this._counterLimit) this._counter = 0;
+    if (this._rndCounter >= this._counterLimit) this._rndCounter = 0;
     return interval(period).pipe(
       takeUntil(this.destroy$),
-      take(counterLimit - this._counter), // с учетом уже сгенерированных чисел
-      map(() => Math.floor(Math.random() * maxValue)),
-      tap(num => console.log('wow:',num))
+      take(counterLimit - this._rndCounter), // с учетом уже сгенерированных чисел
+      map(() => {
+        this._rndCounter++;
+        return Math.floor(Math.random() * maxValue);
+      })
     );
   }
 
