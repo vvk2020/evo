@@ -5,7 +5,7 @@ import { finalize, interval, map, Observable, take } from 'rxjs';
   providedIn: 'root',
 })
 export class GeneratorsService {
-  // НАстройки генераторов
+  // Настройки генераторов
   private _period: number = 2000; // период срабатывания генераторов, мс
   private _maxNumber: number = 1000; // max генерируемых чисел
   private _counterLimit: number = 25; // кол-во чисел, генерируемых за 1 проход
