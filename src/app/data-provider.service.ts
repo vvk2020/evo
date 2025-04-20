@@ -28,8 +28,8 @@ export class DataProviderService {
   constructor(private http: HttpClient) {}
 
   // GET-запрос массива постов
-  getPosts() {
-    return this.http.get<Post[]>(POSTS_URL);
+  getPosts(url: string = POSTS_URL) {
+    return this.http.get<Post[]>(url);
   }
 
   // GET-запрос поста с заданным postId
@@ -39,7 +39,7 @@ export class DataProviderService {
   }
 
   // POST-запрос поста с заданным postId
-  postPost(post: Partial<Post> = {}) {
+  createPost(post: Partial<Post> = {}) {
     return this.http.post<Post>(POSTS_URL, post);
   }
 }

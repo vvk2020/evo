@@ -18,12 +18,19 @@
   <button
     mat-raised-button
     color="primary"
-    (click)="createPost()"
+    (click)="createNewPost()"
     [disabled]="isPosting"
   >
     {{ isPosting ? "Запрос..." : "Кнопка 3" }}
   </button>
-  <button mat-raised-button color="primary">Кнопка 4</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="getAllPosts(ERROR_POSTS_URL)"
+    [disabled]="isGetPostsExec"
+  >
+    {{ isGetPostsExec ? "Запрос..." : "Кнопка 4" }}
+  </button>
   <button mat-raised-button color="primary">Кнопка 5</button>
   <button mat-raised-button color="primary">Кнопка 6</button>
   <button mat-raised-button color="primary">Кнопка 7</button>

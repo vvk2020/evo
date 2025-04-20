@@ -5,6 +5,7 @@ import {
   PostComment,
 } from './data-provider.service';
 import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -24,26 +25,29 @@ export class AppComponent implements OnDestroy {
   public isGetPostsExec: boolean = false;
   public isGetPostCommentsExec: boolean = false;
   public isPosting: boolean = false;
+  public ERROR_POSTS_URL: string = 'https://jsonplaceholder.typicode.com/post';
 
   constructor(private _provider: DataProviderService) {}
 
-  // Кнопка 1: GET-запрос постов
-  public getAllPosts() {
+  // Кнопка 1, 4: GET-запрос постов (c расширенной обработкой ошибок)
+  public getAllPosts(url?: string) {
     this._getPosts$?.unsubscribe(); // отписка от предыдущей подписки
     this.isGetPostsExec = true; // блокировка кнопки запроса
-    this._getPosts$ = this._provider.getPosts().subscribe({
+    this._getPosts$ = this._provider.getPosts(url).subscribe({
       next: (resp) => {
+        console.log('RESP:', resp);
         this._posts = [...resp]; // сохранение данных в компоненте
         this.isGetPostsExec = false; // разблокировка кнопки запроса
         // Вывод данных в консоль
         console.clear();
         console.log('Посты:', this._posts);
       },
-      error: (err) => {
+      error: (err: HttpErrorResponse) => {
+        this._posts = [];
         this.isGetPostsExec = false; // разблокировка кнопки запроса
-        // Вывод ошибки в консоль
+        // Вывод кастомных ошибок в консоль
         console.clear();
-        console.error('Ошибка:', err);
+        console.error(`Ошибка ${err.status}:`, err.message);
       },
     });
   }
@@ -75,10 +79,10 @@ export class AppComponent implements OnDestroy {
   }
 
   // Кнопка 3: POST-запрос c отправкой пустого объекта
-  public createPost(post: Partial<Post> = {}) {
+  public createNewPost(post: Partial<Post> = {}) {
     this._createPost$?.unsubscribe(); // отписка от предыдущей подписки
     this.isPosting = true; // блокировка кнопки запроса
-    this._createPost$ = this._provider.postPost(post).subscribe({
+    this._createPost$ = this._provider.createPost(post).subscribe({
       next: (resp) => {
         console.clear();
         if (!resp) {

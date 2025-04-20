@@ -18,7 +18,7 @@
   - [x] 1 кнопка должна отправлять `GET`-запрос на адрес: `https://jsonplaceholder.typicode.com/posts`.
   - [x] 2 кнопка должна отправлять `GET`-запрос на адрес: `https://jsonplaceholder.typicode.com/comments` при этом должен отправляться `params` `postId=1`, через `options` запроса.
   - [x] 3 кнопка должна отправлять `POST`-запрос на адрес: `https://jsonplaceholder.typicode.com/posts`, в `body` которого отправляется пустой объект
-  - [ ] 4 кнопка должна отправлять `GET`-запрос на адрес: `https://jsonplaceholder.typicode.com/post`, если будут северные ошибки, они должны быть обработаны, выводом в консоль сообщения.
+  - [x] 4 кнопка должна отправлять `GET`-запрос на адрес: `https://jsonplaceholder.typicode.com/post`, если будут северные ошибки, они должны быть обработаны, выводом в консоль сообщения.
   - [ ] 5 кнопка должна отправлять `GET`-запрос на адрес: `https://jsonplaceholder.typicode.com/posts` при этом в `headers` должно отправляться `X-Test: 1`, результат ответа должен быть не в `JSON`-формате, а текстовом.
   - [ ] 6 кнопка должна отправлять `DELETE`-запрос на адрес: `https://jsonplaceholder.typicode.com/posts/1`.
   - [ ] 7 кнопка должна переходить на отдельный компонент, сделанный через `resolve route`, при переходе в шаблоне компонента должен отображаться результат выполненного запроса на сервер по ссылке `https://jsonplaceholder.typicode.com/posts/1`.
