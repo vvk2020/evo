@@ -1,0 +1,30 @@
+<mat-toolbar role="toolbar" class="app-toolbar">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="getAllPosts()"
+    [disabled]="isGetPostsExec"
+  >
+    {{ isGetPostsExec ? "Запрос..." : "Кнопка 1" }}
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="getAllPostCommentsById()"
+    [disabled]="isGetPostCommentsExec"
+  >
+    {{ isGetPostCommentsExec ? "Запрос..." : "Кнопка 2" }}
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="createPost()"
+    [disabled]="isPosting"
+  >
+    {{ isPosting ? "Запрос..." : "Кнопка 3" }}
+  </button>
+  <button mat-raised-button color="primary">Кнопка 4</button>
+  <button mat-raised-button color="primary">Кнопка 5</button>
+  <button mat-raised-button color="primary">Кнопка 6</button>
+  <button mat-raised-button color="primary">Кнопка 7</button>
+</mat-toolbar>

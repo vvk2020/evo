@@ -1,0 +1,15 @@
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+.app-toolbar {
+  gap: 10px;
+}
+
+button {
+  inline-size: 120px; /* чтобы не "прыгала ширина кнопки при изменении текста "*/
+  opacity: 0.5;
+  transition: all 0.3s;
+}
+
+button:hover {
+  opacity: 1;
+}
