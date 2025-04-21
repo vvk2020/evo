@@ -2,11 +2,12 @@
   <button
     mat-raised-button
     color="primary"
-    (click)="getAllPosts()"
+    (click)="getAllPostsToJson()"
     [disabled]="isGetPostsExec"
   >
     {{ isGetPostsExec ? "Запрос..." : "Кнопка 1" }}
   </button>
+
   <button
     mat-raised-button
     color="primary"
@@ -15,6 +16,7 @@
   >
     {{ isGetPostCommentsExec ? "Запрос..." : "Кнопка 2" }}
   </button>
+
   <button
     mat-raised-button
     color="primary"
@@ -23,15 +25,32 @@
   >
     {{ isPosting ? "Запрос..." : "Кнопка 3" }}
   </button>
+
   <button
     mat-raised-button
     color="primary"
-    (click)="getAllPosts(ERROR_POSTS_URL)"
+    (click)="getAllPostsToJson({ url: ERROR_POSTS_URL })"
     [disabled]="isGetPostsExec"
   >
     {{ isGetPostsExec ? "Запрос..." : "Кнопка 4" }}
   </button>
-  <button mat-raised-button color="primary">Кнопка 5</button>
-  <button mat-raised-button color="primary">Кнопка 6</button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="getAllPostsToText()"
+    [disabled]="isGetPostsExec"
+  >
+    {{ isGetPostsExec ? "Запрос..." : "Кнопка 5" }}
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="deletePostById()"
+    [disabled]="isDelPostExec"
+  >
+    Кнопка 6
+  </button>
   <button mat-raised-button color="primary">Кнопка 7</button>
 </mat-toolbar>
