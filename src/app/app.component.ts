@@ -22,6 +22,7 @@ export class AppComponent implements OnDestroy {
 
   // Данные, полученные из запроса
   private _posts: Post[] = [];
+  private _selectedPost?: Post;
   private _postComments: PostComment[] = [];
   private _post?: Post;
   private _textPost: string = '';
@@ -36,7 +37,7 @@ export class AppComponent implements OnDestroy {
   constructor(private _provider: DataProviderService) {}
 
   // Кнопка 1, 4: GET-запрос постов (c кастомной обработкой ошибок)
-  public getAllPosts<T = Post[] | string>(
+  public getAllPosts<T = Post[] | Post | string>(
     request: Observable<T>,
     successCallback: (posts: T) => void
   ): void {
@@ -48,7 +49,7 @@ export class AppComponent implements OnDestroy {
         successCallback(data); // сохранение данных, вывод данных в консоль
         // Вывод данных в консоль
         console.clear();
-        console.log('Посты:', data);
+        console.log('Выбранные посты:', data);
       },
       error: (err: HttpErrorResponse) => {
         this.isGetPostsExec = false; // разблокировка кнопок запроса
@@ -152,6 +153,14 @@ export class AppComponent implements OnDestroy {
     });
   }
 
+  getPostByIdToJson(postId: number, postsReqConf?: RequestConfig): void {
+    this.getAllPosts<Post>(
+      this._provider.getPostByIdAsJSON(postsReqConf, postId),
+      (post) => (this._selectedPost = post)
+    );
+  }
+
+  // Кнопка 7: GET-запрос поста по postId
   ngOnDestroy() {
     this._getPosts$?.unsubscribe();
     this._getPostCommentsById$?.unsubscribe();

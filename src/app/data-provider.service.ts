@@ -62,8 +62,20 @@ export class DataProviderService {
   // GET-запрос постов в выводом в JSON-формате
 
   getPostsAsJSON(reqConf: RequestConfig = {}): Observable<Post[]> {
-    const postsURL = reqConf.url || POSTS_URL;
+    let postsURL = reqConf.url || POSTS_URL;
     return this.http.get<Post[]>(postsURL, {
+      ...reqConf.options,
+      responseType: 'json' as const,
+    });
+  }
+
+  getPostByIdAsJSON(
+    reqConf: RequestConfig = {},
+    postId?: number
+  ): Observable<Post> {
+    let postsURL = reqConf.url || POSTS_URL;
+    if (postId) postsURL += `/${postId}`;
+    return this.http.get<Post>(postsURL, {
       ...reqConf.options,
       responseType: 'json' as const,
     });
@@ -80,8 +92,8 @@ export class DataProviderService {
     });
   }
 
-  // DELETE-запрос поста с заданным postId
-  deletePostById(postId: number) {
-    return this.http.delete<void>(`${COMMENTS_URL}/${postId}`);
+  // DELETE-запрос поста с заданным id
+  deletePostById(id: number) {
+    return this.http.delete<void>(`${COMMENTS_URL}/${id}`);
   }
 }

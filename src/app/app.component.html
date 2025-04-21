@@ -52,5 +52,12 @@
   >
     Кнопка 6
   </button>
-  <button mat-raised-button color="primary">Кнопка 7</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="getPostByIdToJson(1)"
+    [disabled]="isGetPostsExec"
+  >
+    Кнопка 7
+  </button>
 </mat-toolbar>
