@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
-  Router,
   Resolve,
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DataProviderService, Post } from './data-provider.service';
 
 @Injectable({
@@ -18,7 +17,6 @@ export class PostsViewResolver implements Resolve<Post> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Post> {
-    // return of(true);
-    return this.dataProvider.getPostByIdAsJSON();
+    return this.dataProvider.getPostByIdAsJSON({}, 1);
   }
 }

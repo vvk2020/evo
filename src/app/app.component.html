@@ -3,6 +3,7 @@
     mat-raised-button
     color="primary"
     (click)="getAllPostsToJson()"
+    [routerLink]="'/'"
     [disabled]="isGetPostsExec"
   >
     {{ isGetPostsExec ? "Запрос..." : "Кнопка 1" }}
@@ -12,6 +13,7 @@
     mat-raised-button
     color="primary"
     (click)="getAllPostCommentsById()"
+    [routerLink]="'/'"
     [disabled]="isGetPostCommentsExec"
   >
     {{ isGetPostCommentsExec ? "Запрос..." : "Кнопка 2" }}
@@ -21,6 +23,7 @@
     mat-raised-button
     color="primary"
     (click)="createNewPost()"
+    [routerLink]="'/'"
     [disabled]="isPosting"
   >
     {{ isPosting ? "Запрос..." : "Кнопка 3" }}
@@ -30,6 +33,7 @@
     mat-raised-button
     color="primary"
     (click)="getAllPostsToJson({ url: ERROR_POSTS_URL })"
+    [routerLink]="'/'"
     [disabled]="isGetPostsExec"
   >
     {{ isGetPostsExec ? "Запрос..." : "Кнопка 4" }}
@@ -39,6 +43,7 @@
     mat-raised-button
     color="primary"
     (click)="getAllPostsToText()"
+    [routerLink]="'/'"
     [disabled]="isGetPostsExec"
   >
     {{ isGetPostsExec ? "Запрос..." : "Кнопка 5" }}
@@ -48,20 +53,14 @@
     mat-raised-button
     color="primary"
     (click)="deletePostById()"
+    [routerLink]="'/'"
     [disabled]="isDelPostExec"
   >
     Кнопка 6
   </button>
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="getPostByIdToJson(1)"
-    [disabled]="isGetPostsExec"
-  >
+  <button mat-raised-button color="primary" [routerLink]="'/post/'">
     Кнопка 7
   </button>
-
-  <button [routerLink]="'/post'">Пост</button>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

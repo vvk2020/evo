@@ -1,7 +1,6 @@
 import {
   HttpClient,
   HttpContext,
-  HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -31,14 +30,8 @@ export interface RequestConfig {
   url?: string;
   options?: {
     headers?: { [header: string]: string | string[] };
-    context?: HttpContext;
-    observe?: 'body';
     params?: { [param: string]: string | number | boolean };
-    reportProgress?: boolean;
-    // responseType: 'arraybuffer' | 'blob' | 'text' | 'json' | undefined;
-    // responseType?: "json";
-    responseType?: 'json' | 'text';
-    withCredentials?: boolean;
+    responseType?: 'json' | 'text'; // 'arraybuffer' | 'blob' | undefined;
   };
 }
 
@@ -60,7 +53,6 @@ export class DataProviderService {
   }
 
   // GET-запрос постов в выводом в JSON-формате
-
   getPostsAsJSON(reqConf: RequestConfig = {}): Observable<Post[]> {
     let postsURL = reqConf.url || POSTS_URL;
     return this.http.get<Post[]>(postsURL, {
@@ -69,18 +61,21 @@ export class DataProviderService {
     });
   }
 
+  // GET-запрос поста с заданным postId и вывод в JSON-формате
   getPostByIdAsJSON(
     reqConf: RequestConfig = {},
     postId?: number
   ): Observable<Post> {
     let postsURL = reqConf.url || POSTS_URL;
     if (postId) postsURL += `/${postId}`;
+    console.clear();
     return this.http.get<Post>(postsURL, {
       ...reqConf.options,
       responseType: 'json' as const,
     });
   }
 
+  // GET-запрос постов с выводом в текстовом формате
   getPostsAsText(reqConf: RequestConfig = {}): Observable<string> {
     const postsURL = reqConf.url || POSTS_URL;
     return this.http.get(postsURL, {

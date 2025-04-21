@@ -6,14 +6,10 @@ import { PostsViewResolver } from './posts-view.resolver';
 import { PostComponent } from './post/post.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: AppComponent,
-  // },
   {
     path: 'post',
     component: PostComponent,
-    resolve: [PostsViewResolver],
+    resolve: { post: PostsViewResolver },
   },
 ];
 
