@@ -1,12 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AppComponent } from './app.component';
+import { RouterModule, Routes } from '@angular/router';
+import { PostsViewResolver } from './posts-view.resolver';
+import { PostComponent } from './post/post.component';
 
-
+const routes: Routes = [
+  // {
+  //   path: '',
+  //   component: AppComponent,
+  // },
+  {
+    path: 'post',
+    component: PostComponent,
+    resolve: [PostsViewResolver],
+  },
+];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule
-  ]
+  imports: [CommonModule, RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
