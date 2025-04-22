@@ -1,0 +1,23 @@
+<h1 class="main-title">Перечень задач</h1>
+<mat-card class="todo-card">
+  <mat-card-header>
+    <mat-card-title>
+      <span *ngIf="todo.id">Задача № {{ todo.id }}</span>
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="todo.userId">
+      Пользователь № {{ todo.userId }}<br />
+      Статус: {{ todo.completed ? "выполнена" : "не выполнена" }}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <div class="todo-content">
+      <h3 *ngIf="todo.title" class="todo-title">{{ todo.title }}</h3>
+      <p *ngIf="!todo.title" class="no-title">Название задачи не указано</p>
+    </div>
+  </mat-card-content>
+
+  <mat-divider></mat-divider>
+</mat-card>
