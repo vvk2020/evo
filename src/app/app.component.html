@@ -1,0 +1,48 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="settingsMenu"
+  aria-label="Меню выбора учетной записи"
+>
+  <mat-icon>account_circle</mat-icon>
+</button>
+
+<mat-menu #settingsMenu="matMenu">
+  <div class="menu-radio-container">
+    <mat-radio-group
+      [(ngModel)]="selectedOption"
+      (change)="onOptionChange()"
+      class="menu-radio-group"
+    >
+      <mat-radio-button
+        *ngFor="let option of options"
+        [value]="option.value"
+        class="menu-radio-button"
+      >
+        {{ option.label }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+</mat-menu>
+
+
+<section>
+  <h4>Button Toggle inside of a Template-driven form</h4>
+  <mat-button-toggle-group [(ngModel)]="fontStyle" aria-label="Font Style">
+    <mat-button-toggle value="bold">Bold</mat-button-toggle>
+    <mat-button-toggle value="italic">Italic</mat-button-toggle>
+    <mat-button-toggle value="underline">Underline</mat-button-toggle>
+  </mat-button-toggle-group>
+  <p>Chosen value is {{fontStyle}}</p>
+</section>
+
+<section>
+  <h4>Button Toggle inside of a Reactive form</h4>
+  <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
+    <mat-button-toggle value="bold">Bold</mat-button-toggle>
+    <mat-button-toggle value="italic">Italic</mat-button-toggle>
+    <mat-button-toggle value="underline">Underline</mat-button-toggle>
+  </mat-button-toggle-group>
+  <p>Chosen value is {{fontStyleControl.value}}</p>
+</section>
+
+

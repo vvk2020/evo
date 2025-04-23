@@ -8,19 +8,39 @@ import { PostsListComponent } from './posts-list/posts-list.component';
 import { PostComponent } from './post/post.component';
 import { DataService } from './data.service';
 import { AccessRoleGuard } from './access-role.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Angular Material
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorComponent,
     PostsListComponent,
-    PostComponent
+    PostComponent,
   ],
   imports: [
+    FormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatRadioModule,
+    MatButtonToggleModule,
+
+    ReactiveFormsModule
   ],
   providers: [DataService, AccessRoleGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

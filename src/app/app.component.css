@@ -1,0 +1,28 @@
+.menu-radio-group {
+  padding-inline: 10px;
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.menu-radio-button {
+  border: 1px solid red;
+}
+
+.mat-button-toggle-checked {
+  background-color: #3f51b5; /* Основной цвет темы */
+  color: white !important;
+}
+
+.mat-button-toggle-checked::before {
+  content: "✓";
+  display: block;
+  /* margin-left: 8px; */
+  top: 0;
+  color: white;
+}
+
+mat-button-toggle {
+  width: 200px;
+}
