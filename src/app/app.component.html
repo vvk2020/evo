@@ -1,8 +1,20 @@
 <mat-toolbar role="toolbar" class="app-toolbar">
-  <button mat-raised-button color="primary" aria-label="Добавить таблицу">
+  <button
+    mat-raised-button
+    color="primary"
+    aria-label="Добавить таблицу"
+    (click)="addDynamicComp()"
+  >
     Добавить таблицу
   </button>
-  <button mat-raised-button color="warn" aria-label="Удалить таблицу">
+  <button
+    mat-raised-button
+    color="warn"
+    aria-label="Удалить таблицу"
+    (click)="delDynamicComp()"
+  >
     Удалить таблицу
   </button>
 </mat-toolbar>
+
+<ng-template #dynamicComp></ng-template>
