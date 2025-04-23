@@ -1,5 +1,12 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
+.main-title {
+  margin: 10px;
+  color: #f44336;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 .app-toolbar {
   gap: 10px;
 }
