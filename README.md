@@ -1,27 +1,27 @@
-# FirstEvoApp
+# Практическое задание 15: Guard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
+- [ ] **Задача**: Создать приложение с ролевой моделью, по тематике отображения постов.
 
-## Development server
+**Общая информация**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- [ ] Создать приложение с ролевой моделью. Оно должно содержать сервис, компоненты, один `guard` и типовую верстку. Данные для постов можно взять [отсюда](https://jsonplaceholder.typicode.com/posts).
+- [ ] Приветствуется стилизация ( любой UI фреймворк ).
 
-## Code scaffolding
+**Приложение должно содержать:** 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- [ ] 1. Сервис с ролями пользователя либо администратора (пользователь по умолчанию).
+- [ ] 2. Верстку страницы с ошибкой.
+- [ ] 3. Функционал смены роли, кнопки смены ролей (админ либо пользователь).
+- [ ] 4. Главная страница должна содержать `NavBar` для перехода по основным ссылкам, кроме страницы с ошибкой.
+- [ ] 5. В `Guard` реализовать функцию: при несоответствии роли должен быть автоматический переход на страницу с ошибкой.
+- [ ] 6. Переход на главную страницу из любой части приложения.
+- [ ] 7. Подробный просмотр поста (`:id`) должен отображать отдельный шаблон с данными выбранного поста.
 
-## Build
+**Иерархия маршрутов**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```mermaid
+graph TD
+    A[Главная страница] --> B[Страница постов]
+    A[Главная страница] --> C[Страница с ошибкой]
+    B -->|Пост :id| D[Редактирование поста / только admin]
+```
