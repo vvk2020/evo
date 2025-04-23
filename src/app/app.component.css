@@ -1,0 +1,5 @@
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+.app-toolbar {
+  gap: 10px;
+}
