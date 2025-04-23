@@ -16,13 +16,13 @@ export class AppComponent {
   private viewRef!: ViewContainerRef;
   private componentRef!: ComponentRef<DynamicComponent>;
 
-  // Динамическое добавление компонента DynamicComponent
+  // Добавление компонента DynamicComponent
   addDynamicComp() {
     this.viewRef.clear();
     this.componentRef = this.viewRef.createComponent(DynamicComponent);
   }
 
-  // Динамическое удаление компонента DynamicComponent
+  // Удаление компонента DynamicComponent
   delDynamicComp() {
     this.viewRef.clear();
   }
