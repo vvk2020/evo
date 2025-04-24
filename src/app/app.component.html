@@ -4,8 +4,8 @@
     <mat-icon>home</mat-icon>
     <span>Главная</span>
   </button>
-  <button mat-menu-item>
-    <mat-icon>article</mat-icon>
+  <button mat-menu-item >
+    <mat-icon routerLink="/posts">article</mat-icon>
     <span>Посты</span>
   </button>
   <button mat-menu-item>
@@ -33,3 +33,6 @@
     </mat-button-toggle-group>
   </section>
 </mat-toolbar>
+
+<router-outlet></router-outlet>
+

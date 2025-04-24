@@ -9,7 +9,7 @@ import { AccessRoleGuard } from './access-role.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'posts',
+    // redirectTo: 'posts',
     pathMatch: 'full',
   },
   {
