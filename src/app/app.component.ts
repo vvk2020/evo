@@ -7,18 +7,18 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  options = [
+  accountsTypes = [
     {
-      value: 7,
-      label: 'admin',
+      id: 7,
+      role: 'admin',
     },
     {
-      value: 3,
-      label: 'user',
+      id: 3,
+      role: 'user',
     },
   ];
 
-  accountName = new FormControl(this.options[0].label); // admin выбран по умолчанию
+  accountName = new FormControl(this.accountsTypes[0].role); // admin выбран по умолчанию
   // accountChange$: Subscription;
 
   ngOnInit() {
@@ -29,12 +29,19 @@ export class AppComponent implements OnInit {
   }
 
   handleToggleRole(selectedValue: string | null) {
-    if (selectedValue === 'user') {
-      console.log('Выбран режим пользователя');
-      // Действия для режима пользователя
-    } else if (selectedValue === 'admin') {
-      console.log('Выбран режим администратора');
-      // Действия для режима администратора
+    switch (selectedValue) {
+      case this.accountsTypes[0].role:
+        console.log(this.accountsTypes[0].role);
+        break;
+      case this.accountsTypes[1].role:
+        console.log(this.accountsTypes[0].role);
+        break;
+      default:
     }
+    // if (selectedValue === this.accounts[0].role) {
+    //   console.log(this.accounts[0].role);
+    // } else if (selectedValue === this.accounts[1].role) {
+    //   console.log(this.accounts[1].role);
+    // }
   }
 }

@@ -24,11 +24,11 @@
       [formControl]="accountName"
       class="button-toggle-group"
     >
-      <mat-button-toggle value="user" class="button-toggle"
-        >user</mat-button-toggle
-      >
-      <mat-button-toggle value="admin" class="button-toggle"
-        >admin</mat-button-toggle
+      <mat-button-toggle
+        *ngFor="let accountType of accountsTypes"
+        value="{{ accountType.role }}"
+        class="button-toggle"
+        >{{ accountType.role }}</mat-button-toggle
       >
     </mat-button-toggle-group>
   </section>
