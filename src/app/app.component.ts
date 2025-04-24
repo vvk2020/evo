@@ -7,7 +7,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  accountsTypes = [
+  accountsRoles = [
     {
       id: 7,
       role: 'admin',
@@ -18,23 +18,25 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  accountName = new FormControl(this.accountsTypes[0].role); // admin выбран по умолчанию
+  accountRole = new FormControl(this.accountsRoles[0].role); // admin выбран по умолчанию
   // accountChange$: Subscription;
 
   ngOnInit() {
-    // Подписываемся на изменения значения
-    this.accountName.valueChanges.subscribe((value) => {
+    // Подписываемся на изменения роли
+    this.accountRole.valueChanges.subscribe((value) => {
       this.handleToggleRole(value);
     });
   }
 
+
+  // ОБработка зменения роли в <mat-button-toggle-group>
   handleToggleRole(selectedValue: string | null) {
     switch (selectedValue) {
-      case this.accountsTypes[0].role:
-        console.log(this.accountsTypes[0].role);
+      case this.accountsRoles[0].role:
+        console.log(this.accountsRoles[0].role);
         break;
-      case this.accountsTypes[1].role:
-        console.log(this.accountsTypes[0].role);
+      case this.accountsRoles[1].role:
+        console.log(this.accountsRoles[0].role);
         break;
       default:
     }

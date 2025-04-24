@@ -21,14 +21,14 @@
   <!-- Блок переключения ролей -->
   <section>
     <mat-button-toggle-group
-      [formControl]="accountName"
+      [formControl]="accountRole"
       class="button-toggle-group"
     >
       <mat-button-toggle
-        *ngFor="let accountType of accountsTypes"
-        value="{{ accountType.role }}"
+        *ngFor="let role of accountsRoles"
+        value="{{ role.role }}"
         class="button-toggle"
-        >{{ accountType.role }}</mat-button-toggle
+        >{{ role.role }}</mat-button-toggle
       >
     </mat-button-toggle-group>
   </section>
