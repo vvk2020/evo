@@ -24,11 +24,11 @@
       [formControl]="accountRole"
       class="button-toggle-group"
     >
-      <mat-button-toggle
-        *ngFor="let role of accountsRoles"
-        value="{{ role.role }}"
-        class="button-toggle"
-        >{{ role.role }}</mat-button-toggle
+      <mat-button-toggle value="admin" class="button-toggle"
+        >admin</mat-button-toggle
+      >
+      <mat-button-toggle value="user" class="button-toggle"
+        >user</mat-button-toggle
       >
     </mat-button-toggle-group>
   </section>

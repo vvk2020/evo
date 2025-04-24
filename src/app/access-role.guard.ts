@@ -7,13 +7,16 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { DataService } from './data.service';
+import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccessRoleGuard implements CanActivateChild {
-  constructor(private dataService: DataService, private router: Router) {}
+  constructor(
+    private _accountService: AccountService,
+    private router: Router
+  ) {}
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -22,7 +25,7 @@ export class AccessRoleGuard implements CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.dataService.role === 'admin') {
+    if (this._accountService.role === 'admin') {
       return true;
     } else {
       return this.router.navigateByUrl('/error');
