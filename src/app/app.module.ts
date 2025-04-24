@@ -19,7 +19,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { RouterModule } from '@angular/router';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -27,13 +27,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ErrorComponent,
     PostsListComponent,
     PostComponent,
+    MainComponent,
   ],
   imports: [
     FormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    // RouterModule,
 
     MatMenuModule,
     MatButtonModule,
