@@ -17,7 +17,7 @@ export interface Post {
 export class PostsService {
   constructor(private http: HttpClient) {}
 
-  // GET-запрос постов в выводом в JSON-формате
+  // Запрос постов в выводом в JSON-формате
   public getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(POSTS_URL);
   }

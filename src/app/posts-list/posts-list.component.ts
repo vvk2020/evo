@@ -2,6 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Post, PostsService } from '../posts.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatTableDataSource } from '@angular/material/table';
+import { EditPostDialogComponent } from '../edit-post-dialog/edit-post-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-posts-list',
@@ -10,30 +13,46 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class PostsListComponent implements OnInit, OnDestroy {
   private _getPosts$?: Subscription; // подписка на посты
-  // public isGetPostsExec: boolean = false; // флаг выполнения запроса постов
-  private _posts: Post[] = [];
 
-  constructor(private postsService: PostsService) {}
+  private _posts: Post[] = [];
+  public isLoading = false; // флаг выполнения запроса постов
+  public displayedColumns: string[] = ['id', 'title', 'actions'];
+  public dataSource!: MatTableDataSource<Post>;
+
+  constructor(private postsService: PostsService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getAllPosts();
   }
 
   public getAllPosts(): void {
+    this.isLoading = true;
     this._getPosts$?.unsubscribe(); // отписка от предыдущей подписки
     this._getPosts$ = this.postsService.getPosts().subscribe({
       next: (posts) => {
-        this._posts = [...posts]; // сохранение данных, вывод данных в консоль
+        this._posts = [...posts];
+        this.dataSource = new MatTableDataSource(posts);
+        this.isLoading = false;
         // Вывод данных в консоль
-        console.clear();
-        console.log('Выбранные посты:', posts);
+        // console.clear();
+        // console.log('Выбранные посты:', posts);
       },
       error: (err: HttpErrorResponse) => {
-        // Вывод кастомной ошибки в консоль
+        this._posts = [];
+        this.isLoading = false;
+        // Вывод ошибки в консоль
         console.clear();
         console.error(`Ошибка ${err.status}:`, err.message);
       },
     });
+  }
+
+  public editPost(post: Post): void {
+    const dialogRef = this.dialog.open(EditPostDialogComponent, {
+      width: '500px',
+      data: { ...post }, // передача копии поста в диалог
+    });
+
   }
 
   ngOnDestroy() {
