@@ -1,11 +1,11 @@
 <!-- Меню перехода по ссылкам (в навигационной панели) -->
 <mat-menu #settingsMenu="matMenu">
-  <button mat-menu-item>
+  <button mat-menu-item routerLink="/">
     <mat-icon>home</mat-icon>
     <span>Главная</span>
   </button>
-  <button mat-menu-item >
-    <mat-icon routerLink="/posts">article</mat-icon>
+  <button mat-menu-item routerLink="/posts">
+    <mat-icon>article</mat-icon>
     <span>Посты</span>
   </button>
   <button mat-menu-item>
@@ -35,4 +35,3 @@
 </mat-toolbar>
 
 <router-outlet></router-outlet>
-

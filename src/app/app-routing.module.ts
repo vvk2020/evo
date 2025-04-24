@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ErrorComponent } from './error/error.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
-import { PostComponent } from './post/post.component';
-import { AccessRoleGuard } from './access-role.guard';
 import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
