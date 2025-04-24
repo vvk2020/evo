@@ -21,4 +21,9 @@ export class PostsService {
   public getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(POSTS_URL);
   }
+
+  // Запрос поста в по его id
+  getPostById(id: number): Observable<Post> {
+    return this.http.get<Post>(`${POSTS_URL}/${id}`);
+  }
 }

@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ErrorComponent } from './error/error.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
 import { MainComponent } from './main/main.component';
+import { EditPostDialogComponent } from './edit-post-dialog/edit-post-dialog.component';
+import { EditPostGuard } from './edit-post.guard';
 
 const routes: Routes = [
   {
@@ -15,13 +17,13 @@ const routes: Routes = [
   {
     path: 'posts',
     component: PostsListComponent,
-    // children: [
-    //   {
-    //     path: ':id',
-    //     component: PostComponent,
-    //     canActivateChild: [AccessRoleGuard] /* !!! */,
-    //   },
-    // ],
+    children: [
+      {
+        path: ':id/edit',
+        component: EditPostDialogComponent,
+        canActivate: [EditPostGuard],
+      },
+    ],
   },
   {
     path: 'error',

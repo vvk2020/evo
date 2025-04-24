@@ -1,1 +1,8 @@
-<p>error works!</p>
+<h1 mat-dialog-title>Предупреждение</h1>
+<div mat-dialog-content class="warning-content">
+  <mat-icon color="warn" class="warning-icon">warning</mat-icon>
+  <p>Пользователи не могут редактировать посты.</p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" (click)="onConfirm()">OK</button>
+</div>

@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { Post, PostsService } from '../posts.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
-import { EditPostDialogComponent } from '../edit-post-dialog/edit-post-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-posts-list',
@@ -19,7 +19,11 @@ export class PostsListComponent implements OnInit, OnDestroy {
   public displayedColumns: string[] = ['id', 'title', 'actions'];
   public dataSource!: MatTableDataSource<Post>;
 
-  constructor(private postsService: PostsService, private dialog: MatDialog) {}
+  constructor(
+    private _postsService: PostsService,
+    private dialog: MatDialog,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getAllPosts();
@@ -28,14 +32,11 @@ export class PostsListComponent implements OnInit, OnDestroy {
   public getAllPosts(): void {
     this.isLoading = true;
     this._getPosts$?.unsubscribe(); // отписка от предыдущей подписки
-    this._getPosts$ = this.postsService.getPosts().subscribe({
+    this._getPosts$ = this._postsService.getPosts().subscribe({
       next: (posts) => {
         this._posts = [...posts];
         this.dataSource = new MatTableDataSource(posts);
         this.isLoading = false;
-        // Вывод данных в консоль
-        // console.clear();
-        // console.log('Выбранные посты:', posts);
       },
       error: (err: HttpErrorResponse) => {
         this._posts = [];
@@ -48,11 +49,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
   }
 
   public editPost(post: Post): void {
-    const dialogRef = this.dialog.open(EditPostDialogComponent, {
-      width: '500px',
-      data: { ...post }, // передача копии поста в диалог
-    });
-
+    this._router.navigate(['/posts', post.id, 'edit']);
   }
 
   ngOnDestroy() {

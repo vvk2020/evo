@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { ErrorComponent } from './error/error.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
-import { AccessRoleGuard } from './access-role.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,11 +19,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-// Компоненты, сервисы
+// Компоненты, сервисы, Guard
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { PostsService } from './posts.service';
 import { EditPostDialogComponent } from './edit-post-dialog/edit-post-dialog.component';
+import { EditPostGuard } from './edit-post.guard';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,9 @@ import { EditPostDialogComponent } from './edit-post-dialog/edit-post-dialog.com
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-
+    ReactiveFormsModule,
+    HttpClientModule,
+    // Angular Material
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
@@ -50,9 +52,6 @@ import { EditPostDialogComponent } from './edit-post-dialog/edit-post-dialog.com
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-
-    ReactiveFormsModule,
-    HttpClientModule,
   ],
   exports: [
     MatDialogModule,
@@ -60,7 +59,7 @@ import { EditPostDialogComponent } from './edit-post-dialog/edit-post-dialog.com
     MatFormFieldModule,
     MatInputModule,
   ],
-  providers: [PostsService, AccessRoleGuard],
+  providers: [PostsService, EditPostGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
