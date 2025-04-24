@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -6,8 +6,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-
+export class AppComponent implements OnInit {
   options = [
     {
       value: 7,
@@ -19,17 +18,23 @@ export class AppComponent {
     },
   ];
 
-  selectedOption: number = this.options[0].value; // admin выбран по умолчанию
+  accountName = new FormControl(this.options[0].label); // admin выбран по умолчанию
+  // accountChange$: Subscription;
 
-  constructor() {
-
+  ngOnInit() {
+    // Подписываемся на изменения значения
+    this.accountName.valueChanges.subscribe((value) => {
+      this.handleToggleRole(value);
+    });
   }
 
-  fontStyleControl = new FormControl('bold');
-  fontStyle?: string;
-
-  onOptionChange() {
-    console.log('Selected option:', this.selectedOption);
-    // Ваша логика при изменении выбора
+  handleToggleRole(selectedValue: string | null) {
+    if (selectedValue === 'user') {
+      console.log('Выбран режим пользователя');
+      // Действия для режима пользователя
+    } else if (selectedValue === 'admin') {
+      console.log('Выбран режим администратора');
+      // Действия для режима администратора
+    }
   }
 }

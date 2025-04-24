@@ -1,28 +1,30 @@
-.menu-radio-group {
-  padding-inline: 10px;
-  border: 1px solid blue;
+.toolbar {
   display: flex;
-  flex-direction: row;
-  gap: 10px;
+  justify-content: space-between;
 }
 
-.menu-radio-button {
-  border: 1px solid red;
+.button-toggle-group {
+  border-radius: 15px;
+}
+
+.button-toggle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100px;
+  block-size: 35px;
 }
 
 .mat-button-toggle-checked {
-  background-color: #3f51b5; /* Основной цвет темы */
-  color: white !important;
+  color: white;
+  background-color: #ff4081;
 }
 
 .mat-button-toggle-checked::before {
   content: "✓";
-  display: block;
-  /* margin-left: 8px; */
   top: 0;
+  display: block;
   color: white;
-}
-
-mat-button-toggle {
-  width: 200px;
+  text-align: right;
+  inline-size: 40px;
 }
