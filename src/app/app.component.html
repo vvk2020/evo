@@ -1,4 +1,4 @@
-<!-- Меню перехода по ссылкам (в навигационной панели) -->
+<!-- Главное меню(в навигационной панели) -->
 <mat-menu #settingsMenu="matMenu">
   <button mat-menu-item routerLink="/">
     <mat-icon>home</mat-icon>
@@ -14,7 +14,7 @@
   <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
     <mat-icon>more_vert</mat-icon>
   </button>
-  <!-- Блок переключения ролей -->
+  <!-- Блок кнопок переключения ролей -->
   <section>
     <mat-button-toggle-group
       [formControl]="accountRole"

@@ -13,17 +13,13 @@ import { Router } from '@angular/router';
 })
 export class PostsListComponent implements OnInit, OnDestroy {
   private _getPosts$?: Subscription; // подписка на посты
-
   private _posts: Post[] = [];
+
   public isLoading = false; // флаг выполнения запроса постов
   public displayedColumns: string[] = ['id', 'title', 'actions'];
   public dataSource!: MatTableDataSource<Post>;
 
-  constructor(
-    private _postsService: PostsService,
-    private dialog: MatDialog,
-    private _router: Router
-  ) {}
+  constructor(private _postsService: PostsService, private _router: Router) {}
 
   ngOnInit(): void {
     this.getAllPosts();
@@ -42,7 +38,6 @@ export class PostsListComponent implements OnInit, OnDestroy {
         this._posts = [];
         this.isLoading = false;
         // Вывод ошибки в консоль
-        console.clear();
         console.error(`Ошибка ${err.status}:`, err.message);
       },
     });

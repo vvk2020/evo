@@ -21,7 +21,7 @@ export class EditPostGuard implements CanActivate {
     private _accountService: AccountService,
     private _dialog: MatDialog,
     private _postsService: PostsService,
-    private _router: Router // private dialog: MatDialog
+    private _router: Router
   ) {}
 
   canActivate(
@@ -33,10 +33,8 @@ export class EditPostGuard implements CanActivate {
     | boolean
     | UrlTree {
     const postId = route.params['id'];
-
-    console.log('!!! EditPostGuard !!!');
     if (this._accountService.role === 'admin') {
-      console.log('ADMIN');
+      // Отображение окна редактирования поста
       return this._postsService.getPostById(postId).pipe(
         map((post) => {
           const dialogRef = this._dialog.open(EditPostDialogComponent, {
@@ -52,8 +50,7 @@ export class EditPostGuard implements CanActivate {
         })
       );
     } else {
-      console.log('USER');
-      // Показываем окно блокировки доступа
+      // Отображение окна блокировки доступа
       this._dialog.open(ErrorComponent, {
         width: '500px',
       });

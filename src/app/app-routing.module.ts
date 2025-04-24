@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+
 import { ErrorComponent } from './error/error.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
 import { MainComponent } from './main/main.component';
@@ -10,8 +11,6 @@ import { EditPostGuard } from './edit-post.guard';
 const routes: Routes = [
   {
     path: '',
-    // redirectTo: 'posts',
-    // pathMatch: 'full',
     component: MainComponent,
   },
   {

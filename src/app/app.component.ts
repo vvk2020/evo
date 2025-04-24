@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { AccountService, Role } from './account.service';
 
@@ -11,7 +11,6 @@ export class AppComponent implements OnInit {
   constructor(public accountService: AccountService) {}
 
   accountRole = new FormControl(this.accountService.role); // admin выбран по умолчанию
-  // accountChange$: Subscription;
 
   ngOnInit() {
     // Подписываемся на изменения роли
@@ -23,6 +22,5 @@ export class AppComponent implements OnInit {
   // ОБработка зменения роли в <mat-button-toggle-group>
   handleToggleRole(role: string | null) {
     if (role) this.accountService.role = role as Role;
-    console.log('текущая роль:', this.accountService.role);
   }
 }
