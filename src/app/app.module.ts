@@ -8,18 +8,26 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { NgxsModule } from '@ngxs/store';
+// NGXS
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { TodosListState } from 'src/store/states/todos.state';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     // Angular Material
     MatFormFieldModule,
-
-    FormsModule,
     MatInputModule,
     MatIconModule,
+    // NGXS
+    NgxsModule.forRoot([TodosListState]),
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
