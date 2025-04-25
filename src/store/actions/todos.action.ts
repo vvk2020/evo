@@ -1,7 +1,7 @@
 import { TodosItem } from '../models/todos.model';
 
 export class AddTodo {
-  static readonly type = '[TodosList] Add Item';
+  static readonly type = '[TodosList] Add Todo';
   constructor(public payload: TodosItem) {
     this.payload.id = this.generateId();
     if (this.payload.status === undefined) this.payload.status = false;
@@ -12,10 +12,10 @@ export class AddTodo {
   }
 }
 
-export class RemoveItem {
-  static readonly type = '[TodosList] Remove Item';
-  constructor(public itemId: number) {}
-}
+// export class RemoveItem {
+//   static readonly type = '[TodosList] Remove Todo';
+//   constructor(public itemId: number) {}
+// }
 
 export class ClearTodosList {
   static readonly type = '[TodosList] Clear';

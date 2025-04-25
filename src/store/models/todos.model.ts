@@ -16,7 +16,7 @@ export interface TodosItem {
  */
 export interface TodosList {
   todos: TodosItem[] | null;
-  // count: number;
+  // ... другие свойства списка
 }
 
 // export class UserUpdate {

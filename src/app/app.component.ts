@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { AddTodo } from 'src/store/actions/todos.action';
+import { AddTodo, ClearTodosList } from 'src/store/actions/todos.action';
 
 interface Todo {
   text?: string;
@@ -22,8 +22,8 @@ export class AppComponent {
   }
   // public todo: Todo = {};
 
-  public genId() {
-    console.log('crypto.randomUUID():', crypto.randomUUID());
+  public onClearTodoList() {
+    this.store.dispatch(new ClearTodosList());
   }
 
   constructor(private store: Store) {}

@@ -1,7 +1,7 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { TodosList } from '../models/todos.model';
 import { Injectable } from '@angular/core';
-import { AddTodo } from '../actions/todos.action';
+import { AddTodo, ClearTodosList } from '../actions/todos.action';
 
 @State<TodosList>({
   name: 'TodosListState',
@@ -51,6 +51,11 @@ export class TodosListState {
     // });
   }
 
+  @Action(ClearTodosList)
+  clearTodoList(ctx: StateContext<TodosList>) {
+    ctx.setState({ todos: [] });
+  }
+
   // @Action(AddToCart)
   // addItem(
   //   ctx: StateContext<CartStateModel>,
@@ -85,9 +90,5 @@ export class TodosListState {
   //     items: state.items.filter(item => item.id !== action.itemId),
   //     total: state.total - (itemToRemove.price * itemToRemove.quantity)
   //   });
-  // }
-  // @Action(ClearCart)
-  // clearCart(ctx: StateContext<CartStateModel>) {
-  //   ctx.setState({ items: [], total: 0 });
   // }
 }
