@@ -1,9 +1,18 @@
 <h3 mat-dialog-title>Список задач</h3>
     <mat-label>Тема</mat-label>
-    <input matInput [(ngModel)]="data.title" />
-<mat-dialog-actions align="end">
+    <!-- <input matInput [(ngModel)]="todo.text" /> -->
+<!-- <mat-dialog-actions align="end">
   <button mat-button (click)="onCancel()">Отмена</button>
   <button mat-button color="primary" [mat-dialog-close]="data" disabled>
     Сохранить
   </button>
-</mat-dialog-actions>
+</mat-dialog-actions> -->
+
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Новая задача</mat-label>
+    <span matTextPrefix>+1 &nbsp;</span>
+    <input type="tel" matInput placeholder="555-555-1234">
+    <mat-icon matSuffix>mode_edit</mat-icon>
+  </mat-form-field>
+</form>
