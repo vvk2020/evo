@@ -13,12 +13,11 @@ import { AddTodo, ClearTodosList } from '../actions/todos.action';
 export class TodosListState {
   // Запросы данных из хранилища
   @Selector()
-  static getToken(state: TodosList) {
+  static getTodos(state: TodosList) {
     return state.todos;
   }
 
-  // Запись данных в хранилище
-
+  // Запись задачи в хранилище
   @Action(AddTodo)
   addTodo(ctx: StateContext<TodosList>, action: AddTodo) {
     const state = ctx.getState();
@@ -51,37 +50,13 @@ export class TodosListState {
     // });
   }
 
+  // Очистка списка задач в хранилище
   @Action(ClearTodosList)
   clearTodoList(ctx: StateContext<TodosList>) {
     ctx.setState({ todos: [] });
   }
 
-  // @Action(AddToCart)
-  // addItem(
-  //   ctx: StateContext<CartStateModel>,
-  //   action: AddToCart
-  //   )
-  //   {
-  //     const state = ctx.getState();
-  //     const existingItem = state.items.find(item => item.id === action.payload.id);
-  //     if (existingItem) {
-  //       ctx.patchState({
-  //         items: state.items.map(item =>
-  //           item.id === action.payload.id
-  //             ? { ...item, quantity: item.quantity + 1 }
-  //             : item
-  //         ),
-  //         total: state.total + action.payload.price
-  //       });
-  //     } else {
-  //       ctx.setState({
-  //         items: [...state.items, { ...action.payload, quantity: 1 }],
-  //         total: state.total + action.payload.price
-  //       });
-  //     }
-  //   }
-
-  // @Action(RemoveFromCart)
+   // @Action(RemoveFromCart)
   // removeItem(ctx: StateContext<CartStateModel>, action: RemoveFromCart) {
   //   const state = ctx.getState();
   //   const itemToRemove = state.items.find(item => item.id === action.itemId);
