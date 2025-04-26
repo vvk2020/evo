@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { AddTodo, ClearTodosList } from 'src/store/actions/todos.action';
 
@@ -10,21 +11,30 @@ interface Todo {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  form!: FormGroup;
+
+  constructor(private store: Store, private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.form = this.fb.group({
+      textTodoInput: ['', Validators.required], // можно добавать валидаторы
+    });
+  }
+
   public onAddTodo() {
+    if (this.form.invalid) return;
     this.store.dispatch(
       new AddTodo({
         // id: 777,
-        text: 'wow',
+        text: this.form.value.textTodoInput,
         status: true,
       })
     );
+    this.form.reset();
   }
-  // public todo: Todo = {};
 
   public onClearTodoList() {
     this.store.dispatch(new ClearTodosList());
   }
-
-  constructor(private store: Store) {}
 }
