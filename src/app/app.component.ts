@@ -12,25 +12,25 @@ interface Todo {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  form!: FormGroup;
+  todoForm!: FormGroup;
 
   constructor(private store: Store, private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.form = this.fb.group({
-      textTodoInput: ['', Validators.required], // можно добавать валидаторы
+    this.todoForm = this.fb.group({
+      textTodoInput: ['', Validators.required, Validators.pattern(/^[*]{3,200}$/)], // можно добавать валидаторы
     });
   }
 
   public onAddTodo() {
-    if (this.form.invalid) return;
+    if (this.todoForm.invalid) return;
     this.store.dispatch(
       new AddTodo({
-        text: this.form.value.textTodoInput,
+        text: this.todoForm.value.textTodoInput,
         status: true,
       })
     );
-    this.form.reset();
+    this.todoForm.reset();
   }
 
   public onClearTodoList() {
