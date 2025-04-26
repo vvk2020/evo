@@ -15,8 +15,17 @@
       matInput
       formControlName="textTodoInput"
       placeholder="Введите текст задачи"
+      minlength="3"
+      maxlength="200"
+      required
     />
     <mat-icon matSuffix (click)="onAddTodo()">add</mat-icon>
+
+    <mat-error *ngIf="form.get('textTodoInput')?.invalid">
+      <span *ngIf="form.get('textTodoInput')?.hasError('required')"
+        >Поле обязательно для заполнения</span
+      >
+    </mat-error>
   </mat-form-field>
 </form>
 

@@ -26,7 +26,6 @@ export class AppComponent implements OnInit {
     if (this.form.invalid) return;
     this.store.dispatch(
       new AddTodo({
-        // id: 777,
         text: this.form.value.textTodoInput,
         status: true,
       })
