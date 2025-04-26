@@ -1,6 +1,6 @@
 /**
  * Задача из списка задач
- * @param {number} id уникальный идентификатор задачи
+ * @param {number} id уникальный ID
  * @param {string} text текст задачи
  * @param {boolean} status статус задачи (false - ожидает, true - выполнена)
  */

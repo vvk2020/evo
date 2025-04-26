@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import {
   AddTodo,
   ClearTodosList,
-  LoadTodosListFromLocalStorage,
   RemoveTodo,
   ToggleStatusTodo,
 } from '../actions/todos.action';
@@ -50,10 +49,10 @@ export class TodosListState {
     }
   }
 
-  // Удаление задачи из хранилища
+  // Изменение статуса задачи в списке
   @Action(ToggleStatusTodo)
   toggleStatusTodo(ctx: StateContext<TodosList>, action: ToggleStatusTodo) {
-    // Поиск и изменение статуса задачи в списке
+    // Поиск и изменение статуса задачи
     const state = ctx.getState();
     if (state.todos) {
       const newTodos = state.todos.map((todo) => {

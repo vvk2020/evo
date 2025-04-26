@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 // Angular Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,7 +26,6 @@ import { TodosListState } from 'src/store/states/todos.state';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-
     // Angular Material
     MatFormFieldModule,
     MatInputModule,
@@ -40,10 +38,10 @@ import { TodosListState } from 'src/store/states/todos.state';
     NgxsModule.forRoot([TodosListState]),
     NgxsStoragePluginModule.forRoot({
       key: ['TodosListState'],
-      storage: StorageOption.LocalStorage, // .SessionStorage,
+      storage: StorageOption.LocalStorage,
       deserialize: JSON.parse,
       serialize: JSON.stringify,
-    }), // модуль сохранение состояния между сессиями
+    }), // для сохранение и восстановления состояния в LocalStorage
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
   ],

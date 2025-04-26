@@ -42,10 +42,9 @@ export class AppComponent implements OnInit {
     // Подписка на изменение списка задач
     this._store.select(TodosListState.getTodos).subscribe({
       next: (value) => {
-        // this.todos = value;
         this.todos = new MatTableDataSource(value);
       },
-      error: (err) => console.log('Ошибка:', err),
+      error: (err) => console.log('Ошибка подписки:', err),
     });
   }
 
@@ -62,22 +61,24 @@ export class AppComponent implements OnInit {
     }
   }
 
+  // Очистка списка задач
   public onClearTodoList() {
     this._store.dispatch(new ClearTodosList());
   }
 
+  // Удаление задачи из списка
   deleteTodo(todo: TodosItem) {
     this._store.dispatch(new RemoveTodo(todo));
   }
 
+  // ИЗменение статуса задачи
   toggleTodo(todo: TodosItem) {
-    console.log('chcked:', todo);
     this._store.dispatch(new ToggleStatusTodo(todo));
   }
 
   // Сброс формы добавления задачи к валидному состоянию
   public onReset(): void {
-    // Сбрас значений полей ("" вместо null)
+    // Сброс значений полей ("" вместо null)
     this.todoForm.reset({
       textTodoInput: '',
     });
