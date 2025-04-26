@@ -30,6 +30,7 @@ export class ClearTodosList {
   static readonly type = '[TodosList] Clear';
 }
 
-// export class ViewTodosList {
-//   static readonly type = '[TodosList] View';
-// }
+// Класс загрузки списка задач из локального хранилища
+export class LoadTodosListFromLocalStorage {
+  static readonly type = '[TodosList] Load From LocalStorage';
+}

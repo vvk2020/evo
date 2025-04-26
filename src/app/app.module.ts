@@ -13,9 +13,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { TodosListState } from 'src/store/states/todos.state';
+import { NgxsStoragePluginModule, StorageOption } from '@ngxs/storage-plugin';
 // Компоненты
 import { AppComponent } from './app.component';
+import { TodosListState } from 'src/store/states/todos.state';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +34,12 @@ import { AppComponent } from './app.component';
     MatCheckboxModule,
     // NGXS
     NgxsModule.forRoot([TodosListState]),
+    NgxsStoragePluginModule.forRoot({
+      key: ['TodosListState'],
+      storage: StorageOption.LocalStorage, // .SessionStorage,
+      deserialize: JSON.parse,
+      serialize: JSON.stringify,
+    }), // модуль сохранение состояния между сессиями
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
   ],

@@ -5,6 +5,7 @@ import { Store } from '@ngxs/store';
 import {
   AddTodo,
   ClearTodosList,
+  LoadTodosListFromLocalStorage,
   RemoveTodo,
   ToggleStatusTodo,
 } from 'src/store/actions/todos.action';
@@ -44,17 +45,15 @@ export class AppComponent implements OnInit {
         ],
       ],
     });
+
     // Подписка на изменение списка задач
     this._store.select(TodosListState.getTodos).subscribe({
       next: (value) => {
         // this.todos = value;
         this.todos = new MatTableDataSource(value);
-        console.log('this.dataSource:', this.todos);
       },
       error: (err) => console.log('Ошибка:', err),
     });
-    // Вывод списка задач, храннимого в хранилище
-    this._store.select.
   }
 
   public onSubmit() {
