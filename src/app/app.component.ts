@@ -11,9 +11,6 @@ import {
 import { TodosItem } from 'src/store/models/todos.model';
 import { TodosListState } from 'src/store/states/todos.state';
 
-interface Todo {
-  text?: string;
-}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -44,7 +41,7 @@ export class AppComponent implements OnInit {
       next: (value) => {
         this.todos = new MatTableDataSource(value);
       },
-      error: (err) => console.log('Ошибка подписки:', err),
+      error: (err) => console.log('Ошибка:', err),
     });
   }
 
