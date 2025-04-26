@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 // NGXS
 import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
@@ -32,6 +34,8 @@ import { TodosListState } from 'src/store/states/todos.state';
     MatIconModule,
     MatTableModule,
     MatCheckboxModule,
+    MatToolbarModule,
+    MatButtonModule,
     // NGXS
     NgxsModule.forRoot([TodosListState]),
     NgxsStoragePluginModule.forRoot({

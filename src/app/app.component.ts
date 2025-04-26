@@ -5,7 +5,6 @@ import { Store } from '@ngxs/store';
 import {
   AddTodo,
   ClearTodosList,
-  LoadTodosListFromLocalStorage,
   RemoveTodo,
   ToggleStatusTodo,
 } from 'src/store/actions/todos.action';
@@ -22,13 +21,7 @@ interface Todo {
 })
 export class AppComponent implements OnInit {
   public todoForm!: FormGroup;
-  public displayedColumns: string[] = [
-    'position',
-    'status',
-    'id',
-    'text',
-    'actions',
-  ];
+  public displayedColumns: string[] = ['position', 'status', 'text', 'actions'];
   public todos!: MatTableDataSource<TodosItem>;
 
   constructor(private _store: Store, private fb: FormBuilder) {}
