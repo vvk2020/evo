@@ -15,16 +15,6 @@ export interface TodosItem {
  * @param {TodosItem[]} todos массив задач
  */
 export interface TodosList {
-  todos: TodosItem[] | null;
+  todos: TodosItem[] | undefined;
   // ... другие свойства списка
 }
-
-// export class UserUpdate {
-//   static readonly type = '[User]: User Update';
-//   constructor(public payload: UserInterface) {}
-// }
-
-// export class AddToTodosList {
-//   static readonly type = '[TodosList]: TodosList Insert';
-//   constructor(public payload: TodosItem) {}
-// }

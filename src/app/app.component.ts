@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngxs/store';
-import { AddTodo, ClearTodosList } from 'src/store/actions/todos.action';
+import {
+  AddTodo,
+  ClearTodosList,
+  RemoveTodo,
+  ToggleStatusTodo,
+} from 'src/store/actions/todos.action';
 import { TodosItem } from 'src/store/models/todos.model';
 import { TodosListState } from 'src/store/states/todos.state';
 
@@ -15,8 +21,14 @@ interface Todo {
 })
 export class AppComponent implements OnInit {
   public todoForm!: FormGroup;
-  public todos: TodosItem[] | null = [];
-  public dataSource!: MatTableDataSource<Post>;
+  public displayedColumns: string[] = [
+    'position',
+    'status',
+    'id',
+    'text',
+    'actions',
+  ];
+  public todos!: MatTableDataSource<TodosItem>;
 
   constructor(private _store: Store, private fb: FormBuilder) {}
 
@@ -35,11 +47,14 @@ export class AppComponent implements OnInit {
     // Подписка на изменение списка задач
     this._store.select(TodosListState.getTodos).subscribe({
       next: (value) => {
-        this.todos = value;
-        console.log('this._todos:', this.todos);
+        // this.todos = value;
+        this.todos = new MatTableDataSource(value);
+        console.log('this.dataSource:', this.todos);
       },
-      error: (err) => console.log('Ошибка призапросе данных из хранилища'),
+      error: (err) => console.log('Ошибка:', err),
     });
+    // Вывод списка задач, храннимого в хранилище
+    this._store.select.
   }
 
   public onSubmit() {
@@ -47,7 +62,6 @@ export class AppComponent implements OnInit {
       this._store.dispatch(
         new AddTodo({
           text: this.todoForm.value.textTodoInput,
-          status: true,
         })
       );
       this.onReset();
@@ -60,12 +74,20 @@ export class AppComponent implements OnInit {
     this._store.dispatch(new ClearTodosList());
   }
 
-  // Сброс формы к начальному (валидному) состоянию
+  deleteTodo(todo: TodosItem) {
+    this._store.dispatch(new RemoveTodo(todo));
+  }
+
+  toggleTodo(todo: TodosItem) {
+    console.log('chcked:', todo);
+    this._store.dispatch(new ToggleStatusTodo(todo));
+  }
+
+  // Сброс формы добавления задачи к валидному состоянию
   public onReset(): void {
-    // Сбрас значений полей к "" (вместо null)
+    // Сбрас значений полей ("" вместо null)
     this.todoForm.reset({
-      title: '',
-      author: '',
+      textTodoInput: '',
     });
 
     // Сброс состояния формы

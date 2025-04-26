@@ -1,7 +1,12 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { TodosList } from '../models/todos.model';
 import { Injectable } from '@angular/core';
-import { AddTodo, ClearTodosList } from '../actions/todos.action';
+import {
+  AddTodo,
+  ClearTodosList,
+  RemoveTodo,
+  ToggleStatusTodo,
+} from '../actions/todos.action';
 
 @State<TodosList>({
   name: 'TodosListState',
@@ -17,53 +22,54 @@ export class TodosListState {
     return state.todos;
   }
 
-  // Запись задачи в хранилище
+  // Добавление задачи в хранилище
   @Action(AddTodo)
   addTodo(ctx: StateContext<TodosList>, action: AddTodo) {
     const state = ctx.getState();
-    // const existingItem = state.todos?.find(item => item.id === action.payload.id);
-
     if (state.todos) {
-      ctx.setState({
+      ctx.patchState({
         todos: [...state.todos, { ...action.payload }],
       });
     }
+  }
 
-    // if (existingItem) {
-    //   ctx.patchState({
-    //     items: state.items.map(item =>
-    //       item.id === action.payload.id
-    //         ? { ...item, quantity: item.quantity + 1 }
-    //         : item
-    //     ),
-    //     total: state.total + action.payload.price
-    //   });
-    // } else {
-    //   ctx.setState({
-    //     items: [...state.items, { ...action.payload, quantity: 1 }],
-    //     total: state.total + action.payload.price
-    //   });
-    // }
+  // Удаление задачи из хранилища
+  @Action(RemoveTodo)
+  removeTodo(ctx: StateContext<TodosList>, action: RemoveTodo) {
+    // Фильтруем список задач (удаляем задачу по уникальному id)
+    const state = ctx.getState();
+    if (state.todos) {
+      const newTodos = state.todos.filter(
+        (todo) => todo.id !== action.payload.id
+      );
+      // Обновляем список задач
+      ctx.patchState({
+        todos: [...newTodos],
+      });
+    }
+  }
 
-    // ctx.patchState({
-    //   todos: action.payload.todos,
-    // });
+  // Удаление задачи из хранилища
+  @Action(ToggleStatusTodo)
+  toggleStatusTodo(ctx: StateContext<TodosList>, action: ToggleStatusTodo) {
+    // Поиск и изменение статуса задачи в списке
+    const state = ctx.getState();
+    if (state.todos) {
+      const newTodos = state.todos.map((todo) => {
+        if (todo.id === action.payload.id) todo.status != todo.status;
+        return todo;
+      });
+      // Обновляем список задач
+      ctx.patchState({
+        todos: [...newTodos],
+      });
+    }
   }
 
   // Очистка списка задач в хранилище
   @Action(ClearTodosList)
   clearTodoList(ctx: StateContext<TodosList>) {
-    ctx.setState({ todos: [] });
+    ctx.patchState({ todos: [] });
   }
 
-   // @Action(RemoveFromCart)
-  // removeItem(ctx: StateContext<CartStateModel>, action: RemoveFromCart) {
-  //   const state = ctx.getState();
-  //   const itemToRemove = state.items.find(item => item.id === action.itemId);
-  //   if (!itemToRemove) return;
-  //   ctx.patchState({
-  //     items: state.items.filter(item => item.id !== action.itemId),
-  //     total: state.total - (itemToRemove.price * itemToRemove.quantity)
-  //   });
-  // }
 }
