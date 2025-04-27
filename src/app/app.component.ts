@@ -51,7 +51,6 @@ export class AppComponent implements OnInit {
       textTodoInput: this.todoForm.value.textTodoInput,
     });
     // Валидация и добавление задачи
-    console.log('AAAAAAAAAAAA');
     if (this.todoForm.valid) {
       this._store.dispatch(
         new AddTodo({
