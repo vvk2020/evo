@@ -46,6 +46,12 @@ export class AppComponent implements OnInit {
   }
 
   public onSubmit() {
+    // вызов изменения значения поля для активации валидации (для реактивных форм)
+    this.todoForm.patchValue({
+      textTodoInput: this.todoForm.value.textTodoInput,
+    });
+    // Валидация и добавление задачи
+    console.log('AAAAAAAAAAAA');
     if (this.todoForm.valid) {
       this._store.dispatch(
         new AddTodo({
