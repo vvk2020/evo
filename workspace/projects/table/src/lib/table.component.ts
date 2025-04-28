@@ -2,14 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'lib-table',
-  template: `
-    <p>
-      table works!
-    </p>
-  `,
-  styles: [
-  ]
+  template: `<p>table works!</p>`,
+  styles: [],
+  standalone: false,
 })
-export class TableComponent {
-
-}
+export class TableComponent {}
