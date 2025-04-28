@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "table": {
+      "signature": "976838ca1354d3fcf352f12df5884b27",
+      "file": true
+    }
+  }
+}

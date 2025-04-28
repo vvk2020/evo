@@ -1,0 +1,7 @@
+/*
+ * Public API Surface of table
+ */
+// export * from './lib/table.service';
+export * from './lib/table.component';
+export * from './lib/table.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Byb2plY3RzL3RhYmxlL3NyYy9wdWJsaWMtYXBpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztHQUVHO0FBRUgsdUNBQXVDO0FBQ3ZDLGNBQWMsdUJBQXVCLENBQUM7QUFDdEMsY0FBYyxvQkFBb0IsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4gKiBQdWJsaWMgQVBJIFN1cmZhY2Ugb2YgdGFibGVcbiAqL1xuXG4vLyBleHBvcnQgKiBmcm9tICcuL2xpYi90YWJsZS5zZXJ2aWNlJztcbmV4cG9ydCAqIGZyb20gJy4vbGliL3RhYmxlLmNvbXBvbmVudCc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi90YWJsZS5tb2R1bGUnO1xuIl19
