@@ -1,9 +1,10 @@
 {
   "name": "table",
-  "version": "0.0.0-watch+1745843773391",
+  "version": "0.0.0-watch+1745845857149",
   "peerDependencies": {
     "@angular/common": "^15.2.0",
-    "@angular/core": "^15.2.0"
+    "@angular/core": "^15.2.0",
+    "@angular/material": "^15.2.9"
   },
   "dependencies": {
     "tslib": "^2.3.0"
@@ -28,5 +29,5 @@
       "default": "./fesm2020/table.mjs"
     }
   },
-  "yalcSig": "2684c7ae1f36e2debb420496d5d2221f"
+  "yalcSig": "5260b2388cd838e7f6abcddeb4441ffb"
 }
