@@ -10,7 +10,9 @@
       </li>
     </ul>
   </nav>
-  <button class="header__button-authentication">Вход в аккаунт</button>
+  <button class="button-accent header__button-authentication">
+    Вход в аккаунт
+  </button>
 </header>
 
 <main class="main-container">
@@ -85,14 +87,40 @@
 
       <div class="session-registration">
         <mat-checkbox class="fast-session-flag">Быстрая сессия</mat-checkbox>
-        <a routerLink="/registration" class="registration-link">Зарегистрироваться</a>
+        <a routerLink="/registration" class="registration-link"
+          >Зарегистрироваться</a
+        >
       </div>
+
+      <button class="button-accent button-authentication">Вход</button>
+
+      <div class="block-separator">
+        <p class="line-separator"></p>
+        <p class="text-separator">Или войти через</p>
+        <p class="line-separator"></p>
+      </div>
+
+      <button class="button-accent button-github-auth">
+        <img src="../assets/images/github-icon.svg" alt="GitHub логотип" />
+      </button>
     </form>
   </section>
 </main>
 
 <footer class="footer">
-  <p>FOOTER</p>
+  <p class="text-copyright">© 2023 Foodie, Все права защищены.</p>
+  <ul class="social-links">
+    <li class="social-link">
+      <a href="https://github.com/vvk2020"
+        ><img src="../assets/images/github-icon.svg" alt="github"
+      /></a>
+    </li>
+    <li class="social-link">
+      <a href="https://github.com/vvk2020"
+        ><img src="../assets/images/globe-icon.svg" alt="globalnet"
+      /></a>
+    </li>
+  </ul>
   <!-- <address class="address">
     <a href="tel:++99995555555">+9 999 555 5555</a><br />
     <a href="mailto:info@sobaka.ge">info@sobaka.ge</a><br />
