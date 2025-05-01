@@ -81,11 +81,12 @@ a {
 }
 
 .authorization-title {
+  font-family: "Inter Extra Bold", sans-serif;
   font-weight: 800;
   font-size: 30px;
   line-height: 120%;
-  letter-spacing: -2px;
-
+  /* letter-spacing: 0.01px; */
+  padding-block-end: 32px;
 }
 
 .authorization-form {
@@ -100,6 +101,7 @@ a {
 }
 
 .authorization-field {
+  /* background-color: #ffffff; */
   border-radius: 6px;
   inline-size: 100%;
   /* border-radius: 12px !important; */
