@@ -43,7 +43,8 @@ Thumbs.db
 
 # vvk
 .bak/
+.fig/
 .hlp/
-.sh/ 
+.sh/
 .tmp/
 TODO
