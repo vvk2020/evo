@@ -1,0 +1,4 @@
+.error-section {
+  display: grid;
+  grid-template-columns: 2fr;
+}

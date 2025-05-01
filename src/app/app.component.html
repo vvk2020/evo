@@ -3,110 +3,23 @@
   <nav class="header__menu">
     <ul class="links-list">
       <li class="links-list-item">
-        <a class="link-list" routerLink="/">Главная</a>
+        <a class="link" routerLink="/main">Главная</a>
       </li>
       <li class="links-list-item">
-        <a class="link-list" routerLink="/catalog"> Каталог рецептов</a>
+        <a class="link" routerLink="/catalog"> Каталог рецептов</a>
       </li>
     </ul>
   </nav>
-  <button class="button-accent header__button-authentication">
+  <button
+    class="button-accent header__button-authentication"
+    routerLink="authorization"
+    *ngIf="isButtonAuthVisible"
+    (click)="toggleAuthButtonVisible()"
+  >
     Вход в аккаунт
   </button>
 </header>
-
-<main class="main-container">
-  <section class="authorization-section">
-    <h1 class="authorization-title">Войдите в ваш аккаунт</h1>
-    <form
-      [formGroup]="todoForm"
-      (ngSubmit)="onSubmit()"
-      class="authorization-form"
-    >
-      <mat-form-field class="authorization-field">
-        <mat-label>Логин</mat-label>
-        <input
-          type="text"
-          matInput
-          formControlName="login"
-          placeholder="Введите логин"
-          required
-        />
-        <mat-icon
-          matSuffix
-          *ngIf="
-            todoForm.get('login')?.invalid && todoForm.get('login')?.touched
-          "
-          color="warn"
-          >error</mat-icon
-        >
-
-        <mat-error *ngIf="todoForm.get('login')?.invalid">
-          <span *ngIf="todoForm.get('login')?.hasError('required')"
-            >Поле необходимо заполнить</span
-          >
-          <span *ngIf="todoForm.get('login')?.hasError('minlength')">
-            Минимальная длина - 3 символа
-          </span>
-          <span *ngIf="todoForm.get('login')?.hasError('maxlength')">
-            Максимальная длина - 50 символов
-          </span>
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="authorization-field">
-        <mat-label>Пароль</mat-label>
-        <input
-          type="password"
-          matInput
-          formControlName="password"
-          placeholder="Введите пароль"
-          required
-        />
-        <mat-icon
-          matSuffix
-          *ngIf="
-            todoForm.get('password')?.invalid &&
-            todoForm.get('password')?.touched
-          "
-          color="warn"
-          >error</mat-icon
-        >
-        <mat-error *ngIf="todoForm.get('password')?.invalid">
-          <span *ngIf="todoForm.get('password')?.hasError('required')"
-            >Поле необходимо заполнить</span
-          >
-          <span *ngIf="todoForm.get('password')?.hasError('minlength')">
-            Минимальная длина - 3 символа
-          </span>
-          <span *ngIf="todoForm.get('password')?.hasError('maxlength')">
-            Максимальная длина - 50 символов
-          </span>
-        </mat-error>
-      </mat-form-field>
-
-      <div class="session-registration">
-        <mat-checkbox class="fast-session-flag">Быстрая сессия</mat-checkbox>
-        <a routerLink="/registration" class="registration-link"
-          >Зарегистрироваться</a
-        >
-      </div>
-
-      <button class="button-accent button-authentication">Вход</button>
-
-      <div class="block-separator">
-        <p class="line-separator"></p>
-        <p class="text-separator">Или войти через</p>
-        <p class="line-separator"></p>
-      </div>
-
-      <button class="button-accent button-github-auth">
-        <img src="../assets/images/github-icon.svg" alt="GitHub логотип" />
-      </button>
-    </form>
-  </section>
-</main>
-
+<router-outlet></router-outlet>
 <footer class="footer">
   <p class="text-copyright">© 2023 Foodie, Все права защищены.</p>
   <ul class="social-links">
@@ -116,57 +29,9 @@
       /></a>
     </li>
     <li class="social-link">
-      <a href="https://github.com/vvk2020"
+      <a href="#0"
         ><img src="../assets/images/globe-icon.svg" alt="globalnet"
       /></a>
     </li>
   </ul>
-  <!-- <address class="address">
-    <a href="tel:++99995555555">+9 999 555 5555</a><br />
-    <a href="mailto:info@sobaka.ge">info@sobaka.ge</a><br />
-    <p class="address_post">наб. Принсенграхт 263-<br />265, Амстердам</p>
-  </address>
-  <nav class="footer__menu">
-    <ul class="links-list">
-      <li>
-        <a class="link_active" href="#0">главная</a>
-      </li>
-      <li>
-        <a href="#lots">посмотреть лоты</a>
-      </li>
-      <li>
-        <a href="#about">об аукционе</a>
-      </li>
-    </ul>
-  </nav>
-
-  <ul class="footer__socals-links">
-    <li>
-      <a href="http://youtube.com/">
-        <img
-          class="footer__logo-image"
-          src="./images/yt.svg"
-          alt="Логотип YouTube"
-        />
-      </a>
-    </li>
-    <li>
-      <a href="https://vk.com/">
-        <img
-          class="footer__logo-image"
-          src="./images/vk.svg"
-          alt="Логотип VK"
-        />
-      </a>
-    </li>
-    <li>
-      <a href="https://ru.pinterest.com/">
-        <img
-          class="footer__logo-image"
-          src="./images/pinterest.svg"
-          alt="Логотип Pinterest"
-        />
-      </a>
-    </li>
-  </ul> -->
 </footer>

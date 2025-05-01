@@ -1,1 +1,85 @@
-<p>authorization works!</p>
+<main class="main-container">
+  <section class="authorization-section">
+    <h1 class="authorization-title">Войдите в ваш аккаунт</h1>
+    <form
+      [formGroup]="authForm"
+      (ngSubmit)="onSubmit()"
+      class="authorization-form"
+    >
+      <mat-form-field class="authorization-field">
+        <mat-label>Логин</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="login"
+          placeholder="Введите логин"
+          required
+        />
+        <mat-icon
+          matSuffix
+          *ngIf="
+            authForm.get('login')?.invalid && authForm.get('login')?.touched
+          "
+          color="warn"
+          >error</mat-icon
+        >
+
+        <mat-error *ngIf="authForm.get('login')?.invalid">
+          <span *ngIf="authForm.get('login')?.hasError('required')"
+            >Поле необходимо заполнить</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="authorization-field">
+        <mat-label>Пароль</mat-label>
+        <input
+          type="password"
+          matInput
+          formControlName="password"
+          placeholder="Введите пароль"
+          required
+        />
+        <mat-icon
+          matSuffix
+          *ngIf="
+            authForm.get('password')?.invalid &&
+            authForm.get('password')?.touched
+          "
+          color="warn"
+          >error</mat-icon
+        >
+        <mat-error *ngIf="authForm.get('password')?.invalid">
+          <span *ngIf="authForm.get('password')?.hasError('required')"
+            >Поле необходимо заполнить</span
+          >
+          <span *ngIf="authForm.get('password')?.hasError('minlength')">
+            Минимальная длина - 4 символа
+          </span>
+          <span *ngIf="authForm.get('password')?.hasError('maxlength')">
+            Максимальная длина - 20 символов
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="session-registration">
+        <mat-checkbox class="fast-session-flag">Быстрая сессия</mat-checkbox>
+        <a routerLink="/registration" class="link registration-link"
+          >Зарегистрироваться</a
+        >
+      </div>
+
+      <button class="button-accent button-authentication">Вход</button>
+
+      <div class="block-separator">
+        <p class="line-separator"></p>
+        <p class="text-separator">Или войти через</p>
+        <p class="line-separator"></p>
+      </div>
+
+      <button class="button-accent button-github-auth">
+        <img src="../assets/images/github-icon.svg" alt="GitHub логотип" />
+      </button>
+    </form>
+  </section>
+</main>

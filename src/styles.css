@@ -14,6 +14,7 @@
 @font-face {
   font-family: "Inter Extra Bold";
   src: url("./assets/fonts/Inter-ExtraBold.woff") format("woff");
+  src: url("./assets/fonts/Inter-ExtraBold.woff2") format("woff2");
   font-weight: 700;
   font-display: swap;
 }
@@ -41,4 +42,24 @@ body {
   flex-direction: column;
   justify-content: space-between;
   block-size: 100%;
+}
+
+.button-accent {
+  background: var(--accent-color);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.43;
+  border-radius: 8px;
+  padding: 9px 22px;
+  border: none;
+  color: #ffffff;
+}
+
+.link {
+  text-decoration: none;
+  color: #000;
+}
+
+button {
+  cursor: pointer;
 }

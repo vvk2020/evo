@@ -20,7 +20,7 @@ import { AuthorizationComponent } from './authorization/authorization.component'
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { RecipeComponent } from './recipe/recipe.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,22 +31,24 @@ import { ReactiveFormsModule } from '@angular/forms';
     RegistrationComponent,
     AuthorizationComponent,
     CreateRecipeComponent,
-    RecipeComponent  ],
+    RecipeComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-        // Angular Material
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
-        MatTableModule,
-        MatCheckboxModule,
-        MatToolbarModule,
-        MatButtonModule,
+    HttpClientModule,
+    // Angular Material
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatButtonModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
