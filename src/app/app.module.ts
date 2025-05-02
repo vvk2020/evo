@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 // others
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -21,6 +22,7 @@ import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { RecipeComponent } from './recipe/recipe.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
     AuthorizationComponent,
     CreateRecipeComponent,
     RecipeComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +50,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatCheckboxModule,
     MatToolbarModule,
     MatButtonModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

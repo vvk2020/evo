@@ -1,7 +1,9 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-const BASE_URL: string = 'https://evo-academy.wckz.dev/api/cooking-blog/';
+// const BASE_URL: string = 'https://evo-academy.wckz.dev/api/cooking-blog/';
+const BASE_URL: string = '/api/';
 
 export interface Account {
   id: string; // "fb80c837-a44f-4e43-ac01-fcdc8a117200",
@@ -29,11 +31,20 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {}
 
   public logining(user: User) {
-    if (user.username && user.password)
-      return this.http.post<Account>(`${BASE_URL}users/sign`, {
-        username: user.username,
-        password: user.password,
+    if (user.username && user.password) {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        // 'Accept': '*/*',
       });
+      return this.http.post<Account>(
+        `${BASE_URL}users/sign`,
+        {
+          username: user.username,
+          password: user.password,
+        },
+        { headers }
+      );
+    }
     return;
   }
 

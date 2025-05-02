@@ -1,0 +1,17 @@
+<div class="notification-container">
+  <!-- <mat-icon *ngIf="data.icon" class="action-icon">{{ data.icon }}</mat-icon> -->
+  <mat-icon
+    *ngIf="data.icon"
+    [class]="'icon-' + data.type"
+    >{{ data.icon }}</mat-icon
+  >
+
+  <div class="notification-content">
+    <h3>{{ data.title }}</h3>
+    <p>{{ data.message }}</p>
+  </div>
+
+  <button mat-icon-button (click)="snackBarRef.dismiss()">
+    <mat-icon class="close-icon">close</mat-icon>
+  </button>
+</div>

@@ -7,6 +7,7 @@ import {
   User,
 } from '../authentication.service';
 import { Router } from '@angular/router';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-authorization',
@@ -18,17 +19,18 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   public authForm!: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
+    private _formBuilder: FormBuilder,
     private _authServ: AuthenticationService,
-    private router: Router
+    private _router: Router,
+    private _notifServ: NotificationService
   ) {}
 
   ngOnInit() {
     // Инициализация формы
-    this.authForm = this.fb.group({
-      login: ['', [Validators.required]],
+    this.authForm = this._formBuilder.group({
+      login: ['admin', [Validators.required]],
       password: [
-        '',
+        'admin12345',
         [
           Validators.required,
           Validators.minLength(4),
@@ -53,11 +55,18 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
         next: (account) => {
           console.log(`account:`, account);
           // Обработка успешной аутентификации
-          this.router.navigate(['']);
+          this._notifServ.showSuccess(
+            'Авторизация успешно пройдена',
+            `Добро пожаловать, ${account.firstName} ${account.lastName}!`
+          );
+          this._router.navigate(['']);
           this.onReset();
         },
         error: (err) => {
-          this.router.navigate(['/error']);
+          this._notifServ.showError(
+            'Авторизация не пройдена',
+            'Проверьте логин и пароль'
+          );
 
           // Вывод ошибки в консоль
           console.clear();

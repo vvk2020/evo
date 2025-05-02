@@ -1,0 +1,44 @@
+.notification-container {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  gap: 12px;
+  min-width: 300px;
+  max-width: 500px;
+  padding: 16px;
+  background: transparent;
+}
+.notification-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.notification-content h3 {
+  margin: 0;
+  padding: 0;
+  flex-grow: 1;
+  font-size: 16px;
+  font-weight: 500;
+  color: #111827;
+}
+.notification-content p {
+  margin: 0;
+  color: #6b7280;
+}
+.icon-success {
+  color: #34d399;
+  flex-shrink: 0;
+}
+.icon-warning {
+  /* color: var(--accent-color); */
+  color: blue;
+  flex-shrink: 0;
+}
+.icon-error {
+  color: red;
+  flex-shrink: 0;
+}
+.close-icon {
+  color: #9ca3af;
+  flex-shrink: 0;
+}

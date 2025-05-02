@@ -1,6 +1,8 @@
 * {
   margin: 0;
   padding: 0;
+  --accent-color: #3a3395;
+  --darkblue-color: #111827;
 }
 
 @font-face {
@@ -28,8 +30,6 @@ body {
 body {
   margin: 0;
   padding: 0;
-  --accent-color: #3a3395;
-  --darkblue-color: #111827;
   margin: 0;
   font-family: "Inter Regular", sans-serif;
   color: #000;
@@ -62,4 +62,19 @@ body {
 
 button {
   cursor: pointer;
+}
+
+/* Всплывающик уведомления */
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  --mdc-snackbar-container-color: #fff;
+  --mdc-shape-small: 8px;
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__label {
+  padding: 0;
+}
+
+div.mdc-snackbar__surface {
+  padding: 0;
 }
