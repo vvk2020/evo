@@ -7,12 +7,12 @@ import { RegistrationComponent } from './registration/registration.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { RecipeComponent } from './recipe/recipe.component';
-import { CatalogComponent } from './catalog/catalog.component';
+import { RecipesComponent } from './recipes/recipes.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'recipes', component: RecipeComponent }, // рецепт
-  { path: 'catalog', component: CatalogComponent }, // каталог рецептов
+  { path: 'recipe', component: RecipeComponent }, // рецепт
+  { path: 'recipes', component: RecipesComponent }, // каталог рецептов
   { path: 'error', component: ErrorComponent }, // страница с ошибкой
   { path: 'registration', component: RegistrationComponent }, // регистрация
   { path: 'authorization', component: AuthorizationComponent }, // авторизация

@@ -69,7 +69,12 @@
         >
       </div>
 
-      <button class="button-accent button-authentication">Вход</button>
+      <button
+        class="button-accent button-authentication"
+        [disabled]="!authForm.valid"
+      >
+        Вход
+      </button>
 
       <div class="block-separator">
         <p class="line-separator"></p>

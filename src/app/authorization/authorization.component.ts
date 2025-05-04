@@ -1,13 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
-import {
-  Account,
-  AuthenticationService,
-  User,
-} from '../authentication.service';
+import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { NotificationService } from '../notification.service';
+import { Account, User } from '../interaces/auth.interface';
 
 @Component({
   selector: 'app-authorization',
@@ -47,14 +44,17 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
       password: this.authForm.value.password,
     });
     // Валидация и запрос JWT-токена
+    // this.authForm.markAllAsTouched(); // Показываем ошибки при сабмите
     if (this.authForm.valid) {
       this.autentication({
         username: this.authForm.get('login')?.value,
         password: this.authForm.get('password')?.value,
       }).subscribe({
         next: (account) => {
-          console.log(`account:`, account);
+
+          console.log(`this._authServ.account:`, this._authServ.account);
           // Обработка успешной аутентификации
+
           this._notifServ.showSuccess(
             'Авторизация успешно пройдена',
             `Добро пожаловать, ${account.firstName} ${account.lastName}!`
@@ -111,7 +111,9 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (resp) => {
+          console.log('1');
           this._authServ.account = resp;
+          console.log('2');
           result$.next(resp);
           result$.complete();
         },

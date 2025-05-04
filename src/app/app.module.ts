@@ -11,10 +11,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
+// NGXS
+import { NgxsModule } from '@ngxs/store';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 // others
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
-import { CatalogComponent } from './catalog/catalog.component';
 import { ErrorComponent } from './error/error.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
@@ -23,18 +27,21 @@ import { RecipeComponent } from './recipe/recipe.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NotificationComponent } from './notification/notification.component';
+import { RoleInRussianPipe } from './role-in-russian.pipe';
+import { RecipesComponent } from './recipes/recipes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    CatalogComponent,
     ErrorComponent,
     RegistrationComponent,
     AuthorizationComponent,
     CreateRecipeComponent,
     RecipeComponent,
     NotificationComponent,
+    RoleInRussianPipe,
+    RecipesComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +58,11 @@ import { NotificationComponent } from './notification/notification.component';
     MatToolbarModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatMenuModule,
+    // NGXS
+    NgxsModule.forRoot([]),
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

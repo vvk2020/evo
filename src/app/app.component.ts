@@ -1,32 +1,36 @@
-import { Component } from '@angular/core';
-import { NotificationService } from './notification.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthenticationService } from './authentication.service';
+import { Subscription } from 'rxjs';
+import { Account } from './interaces/auth.interface';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  constructor(private notification: NotificationService) {}
+export class AppComponent implements OnInit, OnDestroy {
+  private _accountSubscr!: Subscription;
+  public currentAccount?: Account;
 
-  public isButtonAuthVisible: boolean = true;
-
-  public toggleAuthButtonVisible(): void {
-    this.isButtonAuthVisible = !this.isButtonAuthVisible;
+  constructor(private _authServ: AuthenticationService) {}
+  ngOnInit(): void {
+    console.log('currentAccount:', this.currentAccount);
+    // Подписываемся на изменения аккаунта
+    this._accountSubscr = this._authServ
+      .onAccountChange()
+      .subscribe((account) => {
+        this.currentAccount = account;
+      });
+    // Инициализация
+    this.currentAccount = this._authServ.account;
   }
 
-  showNotification() {
-    // this.notification.showSuccess(
-    //   'Успешное выполнение',
-    //   'Данные были успешно сохранены в системе'
-    // );
-    // this.notification.showWarning(
-    //   'Успешное выполнение',
-    //   'Данные были успешно сохранены в системе'
-    // );
-    this.notification.showError(
-      'Успешное выполнение',
-      'Данные были успешно сохранены в системе'
-    );
+  ngOnDestroy() {
+    // Отписка при уничтожении компонента
+    this._accountSubscr?.unsubscribe();
+  }
+
+  onLogout(){
+    this._authServ.logout();
   }
 }

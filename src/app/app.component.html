@@ -6,18 +6,59 @@
         <a class="link" routerLink="/main">Главная</a>
       </li>
       <li class="links-list-item">
-        <a class="link" routerLink="/catalog"> Каталог рецептов</a>
+        <a class="link" routerLink="/recipes"> Каталог рецептов</a>
       </li>
     </ul>
   </nav>
-  <button
-    class="button-accent header__button-authentication"
-    routerLink="authorization"
-    *ngIf="isButtonAuthVisible"
-    (click)="toggleAuthButtonVisible()"
-  >
-    Вход в аккаунт
-  </button>
+
+  <div class="panel-control">
+    <!-- Кнопка редактирования рецептов -->
+    <a class="edit-pecipes-link" *ngIf="!!currentAccount">
+      <img
+        src="../assets/images/edit-recipes.svg"
+        alt="Редактировать рецепты"
+        class="edit-pecipes-icon"
+      />
+    </a>
+
+    <!-- Кнопка / меню управления аккаунтом -->
+    <a
+      *ngIf="!!currentAccount; else notLoggedIn"
+      [matMenuTriggerFor]="menu"
+      class="account-link"
+    >
+      <!-- src="../assets/images/tmp/avatar.png" -->
+      <img src="{{ currentAccount.avatar }}" alt="Аватар" class="avatar" />
+      <div class="user-description">
+        <p class="user-name">
+          {{ currentAccount.firstName }} {{ currentAccount.lastName }}
+        </p>
+        <p class="user-role">{{ currentAccount.role | roleInRussian }}</p>
+      </div>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          Вы вошли как {{ currentAccount.username }}
+        </button>
+        <button mat-menu-item>Настройки аккаунта</button>
+        <button *ngIf="currentAccount.role === 'admin'" mat-menu-item>
+          Администрирование
+        </button>
+        <button mat-menu-item class="menu-item_accent" (click)="onLogout()">
+          Выход
+        </button>
+      </mat-menu>
+    </a>
+
+    <ng-template #notLoggedIn>
+      <button
+        class="button-accent header__button-authentication"
+        routerLink="authorization"
+      >
+        Вход в аккаунт
+      </button>
+    </ng-template>
+  </div>
 </header>
 <router-outlet></router-outlet>
 <footer class="footer">

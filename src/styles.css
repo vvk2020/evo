@@ -55,6 +55,11 @@ body {
   color: #ffffff;
 }
 
+.button-accent:disabled {
+  cursor: not-allowed;
+  background: #d1d5db;
+}
+
 .link {
   text-decoration: none;
   color: #000;
@@ -77,4 +82,11 @@ button {
 
 div.mdc-snackbar__surface {
   padding: 0;
+}
+
+/* Меню */
+
+/* Акцентный текст в меню */
+.menu-item_accent span.mdc-list-item__primary-text {
+  color: #be2d2d;
 }
